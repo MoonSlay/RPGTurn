@@ -7,8 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!-- res/layout/activity_main.xml -->
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <!-- Res/layout/activity_main.xml -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -54,20 +54,29 @@
             android:text="Heal"
             android:layout_marginTop="10dp" />
 
-        <Button
-            android:id="@+id/btnSpecialAttack"
-            android:layout_width="wrap_content"
+        <!-- Attack Options -->
+        <LinearLayout
+            android:id="@+id/llAttackOptions"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Special Attack" />
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginTop="20dp">
 
-        <Button
-            android:id="@+id/btnMagic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Magic" />
+            <Button
+                android:id="@+id/btnSwiftCut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Swift Cut" />
 
+            <Button
+                android:id="@+id/btnForwardSlash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Forward Slash" />
 
-        <!-- Text area to show result of the action -->
+        </LinearLayout>
+
         <TextView
             android:id="@+id/tvGameLog"
             android:layout_width="wrap_content"
@@ -76,6 +85,4 @@
             android:layout_marginTop="30dp"
             android:textSize="16sp" />
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
