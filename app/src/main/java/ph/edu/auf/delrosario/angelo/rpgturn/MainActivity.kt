@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         // Initialize hero and enemy objects
         hero = Hero("Angelo",
-            hp = Random.nextInt(80, 120),
+            maxHP = Random.nextInt(180, 220),
             attackPower = Random.nextInt(10, 20),
             defense = Random.nextInt(8, 16),
             luck = Random.nextInt(1, 5),
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         enemy = Enemy(
             "Black Dragon",
-            hp = Random.nextInt(80, 120),
+            maxHP = Random.nextInt(80, 120),
             attackPower = Random.nextInt(10, 20),
             defense = Random.nextInt(8, 16),
             luck = Random.nextInt(1, 5),
@@ -50,8 +50,10 @@ class MainActivity : AppCompatActivity() {
         imageViewEnemy = findViewById(R.id.imageViewEnemy)
         imageDice = findViewById(R.id.imageDice)
 
-        heroHpBar.max = hero.hp
-        enemyHpBar.max = enemy.hp
+        heroHpBar.max = hero.maxHP
+        heroHpBar.progress = hero.hp
+        enemyHpBar.max = enemy.maxHP
+        enemyHpBar.progress = enemy.hp
         updateHpBars()
 
         imageDice.setOnClickListener {
@@ -157,17 +159,47 @@ class MainActivity : AppCompatActivity() {
 
     // Updates the HP stats and HP bars
     private fun updateHpBars() {
+        heroHpBar.max = hero.maxHP
         heroHpBar.progress = hero.hp
+        enemyHpBar.max = enemy.maxHP
         enemyHpBar.progress = enemy.hp
     }
 
     // Check if the game is over (either hero or enemy reaches 0 HP)
     private fun checkGameOver() {
         if (enemy.hp <= 0) {
-            navigateToGameOver(true)
+            // Hero gains experience
+            val experienceGained = 50 // Amount of experience gained from defeating an enemy
+            hero.gainExperience(experienceGained)
+            logAction("Hero gained $experienceGained XP and leveled up to level ${hero.level}.")
+
+            // Spawn a new enemy with scaled difficulty
+            spawnNewEnemy()
+
+            // Continue the game after leveling up
         } else if (hero.hp <= 0) {
-            navigateToGameOver(false)
+            navigateToGameOver(false) // Hero loses, go to Game Over screen
         }
+    }
+
+    // Function to spawn a new enemy with scaled stats
+    private fun spawnNewEnemy() {
+        val levelMultiplier = hero.level
+        enemy = Enemy(
+            "Enemy",
+            maxHP = Random.nextInt(80, 120) * levelMultiplier,      // Scale HP by hero level
+            attackPower = Random.nextInt(10, 20) * levelMultiplier, // Scale Attack Power
+            defense = Random.nextInt(8, 16) * levelMultiplier,      // Scale Defense
+            luck = Random.nextInt(1, 5) + levelMultiplier,          // Scale Luck slightly
+            evasion = Random.nextInt(3, 8) + levelMultiplier        // Scale Evasion slightly
+        )
+        updateHpBars() // Update HP bars to reflect the new enemy stats
+        logAction("A new enemy appeared!")
+    }
+
+    // Add XP and level-up messages to the game log
+    private fun logLevelUpMessage() {
+        logAction("Hero leveled up to level ${hero.level}!")
     }
 
     private fun enemyTurn() {

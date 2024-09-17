@@ -4,13 +4,13 @@ import kotlin.random.Random
 
 class Enemy(
     name: String,
-    hp: Int,
+    maxHP: Int,
+    hp: Int = maxHP,
     defense: Int,
     attackPower: Int,
     luck: Int,
     evasion: Int
-) : Character(name, hp, defense, attackPower, luck, evasion) {
-
+) : Character(name, maxHP, hp, defense, attackPower, luck, evasion) {
     override fun swiftCut(opponent: Character): Int {
         val damage = (attackPower * 1.2).toInt() - opponent.defend()
         opponent.hp -= damage
@@ -35,8 +35,8 @@ class Enemy(
 
     override fun heal(): Int {
         val healAmount = Random.nextInt(2, 6)
-        val healedHP = if (hp + healAmount > 100) {
-            100 - hp
+        val healedHP = if (hp + healAmount > maxHP) {
+            maxHP - hp
         }
         else {
             healAmount
