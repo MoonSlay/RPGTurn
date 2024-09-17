@@ -8,7 +8,8 @@ abstract class Character(
     var luck: Int,
     var evasion: Int
 ) {
-    abstract fun attack(opponent: Character): Int
+    abstract fun swiftCut(opponent: Character): Int
+    abstract fun forwardSlash(opponent: Character): Int
     abstract fun defend(): Int
     abstract fun heal(): Int
 }

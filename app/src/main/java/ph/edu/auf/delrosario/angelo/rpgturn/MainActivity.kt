@@ -11,14 +11,14 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var hero: Hero
     private lateinit var enemy: Enemy
-    private lateinit var tvHeroStats: TextView
-    private lateinit var tvEnemyStats: TextView
     private lateinit var tvGameLog: TextView
     private lateinit var heroHpBar: ProgressBar
     private lateinit var enemyHpBar: ProgressBar
     private lateinit var llAttackOptions: LinearLayout
     private lateinit var imageViewHero: ImageView
     private lateinit var imageViewEnemy: ImageView
+    private lateinit var imageDice: ImageView
+    private val gameLog = mutableListOf<String>() // List to store the action log
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,21 +29,25 @@ class MainActivity : AppCompatActivity() {
         enemy = Enemy("Enemy", 100, 15, 12, 3, 7)
 
         // Hook UI elements
-        tvHeroStats = findViewById(R.id.tvHeroStats)
-        tvEnemyStats = findViewById(R.id.tvEnemyStats)
         tvGameLog = findViewById(R.id.tvGameLog)
         heroHpBar = findViewById(R.id.heroHpBar)
         enemyHpBar = findViewById(R.id.enemyHpBar)
         imageViewHero = findViewById(R.id.imageViewHero)
         imageViewEnemy = findViewById(R.id.imageViewEnemy)
+        imageDice = findViewById(R.id.imageDice)
 
         heroHpBar.max = hero.hp
         enemyHpBar.max = enemy.hp
         updateHpBars()
 
+        imageDice.setOnClickListener {
+            performRandomHeroAction()
+        }
+
         val btnAttack = findViewById<Button>(R.id.btnAttack)
         val btnDefend = findViewById<Button>(R.id.btnDefend)
         val btnHeal = findViewById<Button>(R.id.btnHeal)
+        val btnShowLog = findViewById<Button>(R.id.btnShowLog)
 
         llAttackOptions = findViewById(R.id.llAttackOptions)
 
@@ -51,12 +55,10 @@ class MainActivity : AppCompatActivity() {
         val btnForwardSlash = findViewById<Button>(R.id.btnForwardSlash)
         val btnBack = findViewById<Button>(R.id.btnBack)
 
-        // Update stats views
-        updateStats()
-
         // Set button listeners
         btnAttack.setOnClickListener {
             llAttackOptions.visibility = View.VISIBLE
+            imageDice.visibility = View.GONE
             btnAttack.visibility = View.GONE
             btnDefend.visibility = View.GONE
             btnHeal.visibility = View.GONE
@@ -64,6 +66,7 @@ class MainActivity : AppCompatActivity() {
 
         btnBack.setOnClickListener {
             llAttackOptions.visibility = View.GONE
+            imageDice.visibility = View.VISIBLE
             btnAttack.visibility = View.VISIBLE
             btnDefend.visibility = View.VISIBLE
             btnHeal.visibility = View.VISIBLE
@@ -71,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 
         btnSwiftCut.setOnClickListener {
             val damage = hero.swiftCut(enemy)
-            tvGameLog.text = "Hero performed Swift Cut on Enemy for $damage damage."
+            logAction("Hero performed Swift Cut on Enemy for $damage damage.")
             updateHpBars()
             checkGameOver()
             enemyTurn()
@@ -79,7 +82,7 @@ class MainActivity : AppCompatActivity() {
 
         btnForwardSlash.setOnClickListener {
             val damage = hero.forwardSlash(enemy)
-            tvGameLog.text = "Hero performed Forward Slash on Enemy for $damage damage."
+            logAction("Hero performed Forward Slash on Enemy for $damage damage.")
             updateHpBars()
             checkGameOver()
             enemyTurn()
@@ -87,17 +90,21 @@ class MainActivity : AppCompatActivity() {
 
         btnDefend.setOnClickListener {
             hero.defend()
-            tvGameLog.text = "Hero defended against the attack."
+            logAction("Hero defended against the attack.")
             checkGameOver()
             enemyTurn()
         }
 
         btnHeal.setOnClickListener {
             val healAmount = hero.heal()
-            tvGameLog.text = "Hero healed $healAmount HP."
+            logAction("Hero healed $healAmount HP.")
             updateHpBars()
             checkGameOver()
             enemyTurn()
+        }
+
+        btnShowLog.setOnClickListener {
+            showFullLogDialog()
         }
 
         // Set image click listeners to show stats in modal
@@ -110,6 +117,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Function to log an action and update the game log display
+    private fun logAction(action: String) {
+        gameLog.add(action)  // Add the action to the log
+        tvGameLog.text = action  // Display the latest action
+    }
+
+    private fun showFullLogDialog() {
+        val logText = gameLog.joinToString("\n")
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Game Log")
+        builder.setMessage(logText)
+        builder.setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+        builder.show()
+    }
+
     // Method to show stats in a dialog
     private fun showStatsDialog(title: String, message: String) {
         val builder = AlertDialog.Builder(this)
@@ -120,12 +142,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Updates the HP stats and HP bars
-    private fun updateStats() {
-        tvHeroStats.text = "Hero: HP=${hero.hp}, DEF=${hero.defense}, ATK=${hero.attackPower}, LUCK=${hero.luck}, EVA=${hero.evasion}"
-        tvEnemyStats.text = "Enemy: HP=${enemy.hp}, DEF=${enemy.defense}, ATK=${enemy.attackPower}, LUCK=${enemy.luck}, EVA=${enemy.evasion}"
-    }
-
-    // Updates the hero and enemy HP bars
     private fun updateHpBars() {
         heroHpBar.progress = hero.hp
         enemyHpBar.progress = enemy.hp
@@ -137,8 +153,6 @@ class MainActivity : AppCompatActivity() {
             navigateToGameOver(true)
         } else if (hero.hp <= 0) {
             navigateToGameOver(false)
-        } else {
-            updateStats()
         }
     }
 
@@ -151,13 +165,17 @@ class MainActivity : AppCompatActivity() {
                     when (randomAction) {
                         1 -> {
                             val damage = enemy.swiftCut(hero)
-                            tvGameLog.text = "Enemy performed Swift Cut on Hero for $damage damage."
+                            logAction("Enemy used Swift Cut on Hero for $damage damage.")
                             updateHpBars()
                             checkGameOver()
                         }
                         2 -> {
                             val damage = enemy.forwardSlash(hero)
-                            tvGameLog.text = "Enemy performed Forward Slash on Hero for $damage damage."
+                            if (damage == 0) {
+                                logAction("Enemy is charging Forward Slash.")
+                            } else {
+                                logAction("Enemy used Forward Slash on Hero for $damage damage.")
+                            }
                             updateHpBars()
                             checkGameOver()
                         }
@@ -165,13 +183,52 @@ class MainActivity : AppCompatActivity() {
                 }
                 2 -> {
                     enemy.defend()
-                    tvGameLog.text = "Enemy defended against the attack."
+                    logAction("Enemy defended against the attack.")
                 }
                 3 -> {
                     val healAmount = enemy.heal()
-                    tvGameLog.text = "Enemy healed $healAmount HP."
+                    logAction("Enemy healed $healAmount HP.")
                     updateHpBars()
                     checkGameOver()
+                }
+            }
+        }
+    }
+
+    private fun performRandomHeroAction() {
+        if (hero.hp > 0) {
+            val randomAction = (1..3).random()
+            when (randomAction) {
+                1 -> {
+                    val randomAction = (1..2).random()
+                    when (randomAction) {
+                        1 -> {
+                            val damage = hero.swiftCut(enemy)
+                            logAction("Hero used Swift Cut on Enemy for $damage damage.")
+                            updateHpBars()
+                            checkGameOver()
+                            enemyTurn()
+                        }
+                        2 -> {
+                            val damage = hero.forwardSlash(enemy)
+                            logAction("Hero used Forward Slash on Enemy for $damage damage.")
+                            updateHpBars()
+                            checkGameOver()
+                            enemyTurn()
+                        }
+                    }
+                }
+                2 -> {
+                    hero.defend()
+                    enemyTurn()
+                    logAction("Hero defended against the attack.")
+                }
+                3 -> {
+                    val healAmount = hero.heal()
+                    logAction("Hero healed $healAmount HP.")
+                    updateHpBars()
+                    checkGameOver()
+                    enemyTurn()
                 }
             }
         }

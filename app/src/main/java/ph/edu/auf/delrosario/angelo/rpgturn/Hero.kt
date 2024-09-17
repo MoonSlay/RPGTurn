@@ -11,21 +11,15 @@ class Hero(
     evasion: Int
 ) : Character(name, hp, defense, attackPower, luck, evasion) {
 
-    override fun attack(opponent: Character): Int {
-        val damage = 0
-        opponent.hp -= damage
-        println("$name attacks ${opponent.name} for $damage damage.")
-        return damage
-    }
 
-    fun swiftCut(opponent: Character): Int {
+    override fun swiftCut(opponent: Character): Int {
         val damage = (attackPower * 1.2).toInt() - opponent.defend()
         opponent.hp -= damage
         println("$name performs Swift Cut on ${opponent.name} for $damage damage.")
         return damage
     }
 
-    fun forwardSlash(opponent: Character): Int {
+    override fun forwardSlash(opponent: Character): Int {
         val crit = Random.nextInt(0, 3)
         val luckcrit = luck * 0.1 + crit
         val damage = attackPower * luckcrit.toInt() - opponent.defend()
