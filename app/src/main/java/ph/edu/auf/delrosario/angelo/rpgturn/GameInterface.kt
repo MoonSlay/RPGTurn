@@ -1,32 +1,41 @@
+package ph.edu.auf.delrosario.angelo.rpgturn
+
+// Game.kt
+import kotlin.random.Random
+
 interface GameInterface {
-    fun startGame()
-    fun endGame(winner: Character)
+    fun playTurn(hero: Hero, enemy: Enemy)
 }
 
-class Game : GameInterface {
-    private val hero = Hero("Hero")
-    private val enemy = Enemy("Goblin", 50, 15, 5)
+class RPGGame : GameInterface {
 
-    override fun startGame() {
-        println("Battle Begins!")
-        var isHeroTurn = true
+    override fun playTurn(hero: Hero, enemy: Enemy) {
+        // Hero's turn
+        println("Choose action: 1. Attack 2. Defend 3. Heal")
+        val action = readLine()?.toIntOrNull()
 
-        while (hero.hp > 0 && enemy.hp > 0) {
-            println("\n--- New Turn ---")
-            if (isHeroTurn) {
-                hero.attack(enemy)
-                // Addmore actions for the hero (e.g., heal)
-            } else {
-                enemy.attack(hero)
-            }
-            isHeroTurn = !isHeroTurn
+        when (action) {
+            1 -> hero.attack(enemy)
+            2 -> hero.defend()
+            3 -> hero.heal()
+            else -> println("Invalid action!")
         }
 
-        endGame(if (hero.hp > 0) hero else enemy)
-    }
+        if (enemy.hp <= 0) {
+            println("${enemy.name} is defeated! You win!")
+            return
+        }
 
-    override fun endGame(winner: Character) {
-        println("\n--- Game Over ---")
-        println("${winner.name} wins!")
+        // Enemy's turn (random action)
+        val enemyAction = Random.nextInt(1, 4)
+        when (enemyAction) {
+            1 -> enemy.attack(hero)
+            2 -> enemy.defend()
+            3 -> enemy.heal()
+        }
+
+        if (hero.hp <= 0) {
+            println("${hero.name} is defeated! You lose!")
+        }
     }
 }

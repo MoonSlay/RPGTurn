@@ -7,44 +7,62 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcom to:"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.046"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.067" />
+    <!-- res/layout/activity_main.xml -->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="16dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Dungeons"
-        tools:layout_editor_absoluteX="86dp"
-        tools:layout_editor_absoluteY="95dp" />
+        <!-- Hero Stats -->
+        <TextView
+            android:id="@+id/tvHeroStats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hero Stats"
+            android:textSize="18sp"
+            android:layout_marginBottom="20dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="and"
-        tools:layout_editor_absoluteX="141dp"
-        tools:layout_editor_absoluteY="151dp" />
+        <!-- Enemy Stats -->
+        <TextView
+            android:id="@+id/tvEnemyStats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enemy Stats"
+            android:textSize="18sp"
+            android:layout_marginBottom="20dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Dragons"
-        tools:layout_editor_absoluteX="132dp"
-        tools:layout_editor_absoluteY="200dp" />
+        <!-- Action Buttons -->
+        <Button
+            android:id="@+id/btnAttack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Attack" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="408dp"
-        android:layout_height="612dp"
-        app:srcCompat="@drawable/_2333"
-        tools:layout_editor_absoluteX="4dp"
-        tools:layout_editor_absoluteY="243dp" />
+        <Button
+            android:id="@+id/btnDefend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Defend"
+            android:layout_marginTop="10dp" />
+
+        <Button
+            android:id="@+id/btnHeal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Heal"
+            android:layout_marginTop="10dp" />
+
+        <!-- Text area to show result of the action -->
+        <TextView
+            android:id="@+id/tvGameLog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Game log will appear here"
+            android:layout_marginTop="30dp"
+            android:textSize="16sp" />
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
