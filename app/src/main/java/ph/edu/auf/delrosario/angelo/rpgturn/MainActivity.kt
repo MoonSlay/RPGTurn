@@ -22,8 +22,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Initialize the hero and enemy
-        hero = Hero("Hero", 100, 20, 15)
-        enemy = Enemy("Enemy", 80, 15, 12)
+        hero = Hero("Hero", 100, 20, 15, 10, 5, 5)
+        enemy = Enemy("Enemy", 80, 15, 12, 8, 4, 6)
 
         // Hook UI elements
         tvHeroStats = findViewById(R.id.tvHeroStats)
@@ -40,27 +40,27 @@ class MainActivity : AppCompatActivity() {
         // Set button listeners for actions
         btnAttack.setOnClickListener {
             val damage = hero.attack(enemy)
-            tvGameLog.text = "Hero attacked Enemy for $damage damage."
+            appendToGameLog("Hero attacked Enemy for $damage damage.")
             checkGameOver()
             enemyTurn()
         }
 
         btnDefend.setOnClickListener {
             hero.defend()
-            tvGameLog.text = "Hero is defending."
+            appendToGameLog("Hero is defending.")
             enemyTurn()
         }
 
         btnHeal.setOnClickListener {
             val healAmount = hero.heal()
-            tvGameLog.text = "Hero healed for $healAmount HP."
+            appendToGameLog("Hero healed for $healAmount HP.")
             enemyTurn()
         }
     }
 
     private fun updateStats() {
-        tvHeroStats.text = "Hero: HP=${hero.hp}, DEF=${hero.defense}, ATK=${hero.attackPower}"
-        tvEnemyStats.text = "Enemy: HP=${enemy.hp}, DEF=${enemy.defense}, ATK=${enemy.attackPower}"
+        tvHeroStats.text = "Hero: HP=${hero.hp}, DEF=${hero.defense}, ATK=${hero.attackPower}, MR=${hero.magicResistance}, LUCK=${hero.luck}, EVA=${hero.evasion}"
+        tvEnemyStats.text = "Enemy: HP=${enemy.hp}, DEF=${enemy.defense}, ATK=${enemy.attackPower}, MR=${enemy.magicResistance}, LUCK=${enemy.luck}, EVA=${enemy.evasion}"
     }
 
     private fun checkGameOver() {
@@ -79,15 +79,15 @@ class MainActivity : AppCompatActivity() {
             when (randomAction) {
                 1 -> {
                     val damage = enemy.attack(hero)
-                    tvGameLog.append("\nEnemy attacked Hero for $damage damage.")
+                    appendToGameLog("Enemy attacked Hero for $damage damage.")
                 }
                 2 -> {
                     enemy.defend()
-                    tvGameLog.append("\nEnemy is defending.")
+                    appendToGameLog("Enemy is defending.")
                 }
                 3 -> {
                     val healAmount = enemy.heal()
-                    tvGameLog.append("\nEnemy healed for $healAmount HP.")
+                    appendToGameLog("Enemy healed for $healAmount HP.")
                 }
             }
             checkGameOver()
@@ -99,5 +99,9 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra("isWin", isWin)
         startActivity(intent)
         finish() // End the main activity
+    }
+
+    private fun appendToGameLog(message: String) {
+        tvGameLog.append("\n$message")
     }
 }

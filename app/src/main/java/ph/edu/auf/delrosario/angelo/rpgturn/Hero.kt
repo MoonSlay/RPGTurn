@@ -1,7 +1,15 @@
 package ph.edu.auf.delrosario.angelo.rpgturn
 
-// Hero.kt
-class Hero(name: String, hp: Int, defense: Int, attackPower: Int) : Character(name, hp, defense, attackPower) {
+
+class Hero(
+    name: String,
+    hp: Int,
+    defense: Int,
+    attackPower: Int,
+    magicResistance: Int,
+    luck: Int,
+    evasion: Int
+) : Character(name, hp, defense, attackPower, magicResistance, luck, evasion) {
 
     override fun attack(opponent: Character): Int {
         val damage = attackPower - opponent.defend()
@@ -23,3 +31,4 @@ class Hero(name: String, hp: Int, defense: Int, attackPower: Int) : Character(na
         return healAmount
     }
 }
+
