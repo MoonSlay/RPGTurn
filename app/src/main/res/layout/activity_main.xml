@@ -7,33 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!-- Res/layout/activity_main.xml -->
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="16dp">
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <!-- Hero Stats -->
-        <TextView
-            android:id="@+id/tvHeroStats"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hero Stats"
-            android:textSize="18sp"
-            android:layout_marginBottom="20dp" />
-
-        <!-- Enemy Stats -->
-        <TextView
-            android:id="@+id/tvEnemyStats"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Enemy Stats"
-            android:textSize="18sp"
-            android:layout_marginBottom="20dp" />
-
-        <!-- Action Buttons -->
         <Button
             android:id="@+id/btnAttack"
             android:layout_width="wrap_content"
@@ -44,24 +26,25 @@
             android:id="@+id/btnDefend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Defend"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="10dp"
+            android:text="Defend" />
 
         <Button
             android:id="@+id/btnHeal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Heal"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="10dp"
+            android:text="Heal" />
 
-        <!-- Attack Options -->
+
         <LinearLayout
             android:id="@+id/llAttackOptions"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="vertical"
-            android:visibility="gone"
-            android:layout_marginTop="20dp">
+            android:visibility="gone">
+
 
             <Button
                 android:id="@+id/btnSwiftCut"
@@ -73,7 +56,15 @@
                 android:id="@+id/btnForwardSlash"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Forward Slash" />
+
+            <Button
+                android:id="@+id/btnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Return" />
 
         </LinearLayout>
 
@@ -81,8 +72,75 @@
             android:id="@+id/tvGameLog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Game log will appear here"
             android:layout_marginTop="30dp"
+            android:text="Game log will appear here"
             android:textSize="16sp" />
     </LinearLayout>
+    <TextView
+        android:id="@+id/tvHeroStats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hero Stats"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp" />
+
+    <ProgressBar
+        android:id="@+id/heroHpBar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:progress="100"
+        app:layout_constraintBottom_toTopOf="@+id/tvHeroStats"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp" />
+
+
+    <ImageView
+        android:id="@+id/imageViewHero"
+        android:layout_width="140dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="28dp"
+        android:src="@drawable/hero"
+        app:layout_constraintBottom_toTopOf="@+id/tvHeroStats"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvEnemyStats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enemy Stats"
+        android:textSize="18sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp" />
+
+    <ProgressBar
+        android:id="@+id/enemyHpBar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:progress="100"
+        app:layout_constraintTop_toBottomOf="@+id/tvEnemyStats"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp" />
+
+    <ImageView
+        android:id="@+id/imageViewEnemy"
+        android:layout_width="133dp"
+        android:layout_height="153dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="44dp"
+        android:src="@drawable/dragon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEnemyStats" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

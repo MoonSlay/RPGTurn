@@ -1,5 +1,7 @@
 package ph.edu.auf.delrosario.angelo.rpgturn
 
+import kotlin.random.Random
+
 class Hero(
     name: String,
     hp: Int,
@@ -10,7 +12,7 @@ class Hero(
 ) : Character(name, hp, defense, attackPower, luck, evasion) {
 
     override fun attack(opponent: Character): Int {
-        val damage = attackPower - opponent.defend()
+        val damage = 0
         opponent.hp -= damage
         println("$name attacks ${opponent.name} for $damage damage.")
         return damage
@@ -24,7 +26,9 @@ class Hero(
     }
 
     fun forwardSlash(opponent: Character): Int {
-        val damage = (attackPower * 1.5).toInt() - opponent.defend()
+        val crit = Random.nextInt(0, 3)
+        val luckcrit = luck * 0.1 + crit
+        val damage = attackPower * luckcrit.toInt() - opponent.defend()
         opponent.hp -= damage
         println("$name performs Forward Slash on ${opponent.name} for $damage damage.")
         return damage
@@ -37,13 +41,16 @@ class Hero(
     }
 
     override fun heal(): Int {
-        val healAmount = (hp * 0.2).toInt()
-        hp += healAmount
-        println("$name heals for $healAmount HP.")
-        return healAmount
+        val healAmount = Random.nextInt(2, 6)
+        val healedHP = if (hp + healAmount > 100) {
+            100 - hp
+        }
+        else {
+            healAmount
+        }
+        hp += healedHP
+        println("$name heals for $healedHP HP.")
+        return healedHP
     }
 
-    fun getStats(): String {
-        return "Name: $name\nHP: $hp\nAttack: $attackPower\nDefense: $defense\nLuck: $luck\nEvasion: $evasion"
-    }
 }
