@@ -1,5 +1,7 @@
 package ph.edu.auf.delrosario.angelo.rpgturn
 
+import kotlin.random.Random
+
 // Enemy.kt
 class Enemy(name: String, hp: Int, defense: Int, attackPower: Int) : Character(name, hp, defense, attackPower) {
 

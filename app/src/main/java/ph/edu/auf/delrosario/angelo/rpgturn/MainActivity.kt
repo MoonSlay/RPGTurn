@@ -7,6 +7,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.widget.Button
 import android.widget.TextView
+import android.content.Intent
 
 class MainActivity : AppCompatActivity() {
 
@@ -57,24 +58,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Update Hero and Enemy stats on the screen
     private fun updateStats() {
         tvHeroStats.text = "Hero: HP=${hero.hp}, DEF=${hero.defense}, ATK=${hero.attackPower}"
         tvEnemyStats.text = "Enemy: HP=${enemy.hp}, DEF=${enemy.defense}, ATK=${enemy.attackPower}"
     }
 
-    // Check if the game is over
     private fun checkGameOver() {
         if (enemy.hp <= 0) {
-            tvGameLog.text = "You defeated the enemy!"
+            navigateToGameOver(true)
         } else if (hero.hp <= 0) {
-            tvGameLog.text = "You were defeated!"
+            navigateToGameOver(false)
         } else {
             updateStats()
         }
     }
 
-    // Simulate the enemy's turn
     private fun enemyTurn() {
         if (enemy.hp > 0) {
             val randomAction = (1..3).random()
@@ -94,5 +92,12 @@ class MainActivity : AppCompatActivity() {
             }
             checkGameOver()
         }
+    }
+
+    private fun navigateToGameOver(isWin: Boolean) {
+        val intent = Intent(this, GameOverActivity::class.java)
+        intent.putExtra("isWin", isWin)
+        startActivity(intent)
+        finish() // End the main activity
     }
 }
