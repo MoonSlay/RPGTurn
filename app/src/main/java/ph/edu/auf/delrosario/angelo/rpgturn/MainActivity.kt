@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,8 +26,21 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Initialize hero and enemy objects
-        hero = Hero("Hero", 100, 20, 15, 5, 10)
-        enemy = Enemy("Enemy", 100, 15, 12, 3, 7)
+        hero = Hero("Angelo",
+            hp = Random.nextInt(80, 120),
+            attackPower = Random.nextInt(10, 20),
+            defense = Random.nextInt(8, 16),
+            luck = Random.nextInt(1, 5),
+            evasion = Random.nextInt(3, 8))
+
+        enemy = Enemy(
+            "Black Dragon",
+            hp = Random.nextInt(80, 120),
+            attackPower = Random.nextInt(10, 20),
+            defense = Random.nextInt(8, 16),
+            luck = Random.nextInt(1, 5),
+            evasion = Random.nextInt(3, 8)
+        )
 
         // Hook UI elements
         tvGameLog = findViewById(R.id.tvGameLog)
