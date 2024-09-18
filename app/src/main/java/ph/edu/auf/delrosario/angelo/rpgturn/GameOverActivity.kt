@@ -14,13 +14,6 @@ class GameOverActivity : AppCompatActivity() {
 
         // Get whether the player won or lost from the intent
         val isWin = intent.getBooleanExtra("isWin", false)
-        val tvGameOverMessage = findViewById<TextView>(R.id.tvGameOverMessage)
-
-        if (isWin) {
-            tvGameOverMessage.text = "Congratulations! You won!"
-        } else {
-            tvGameOverMessage.text = "You lost! Better luck next time!"
-        }
 
         // Restart the game
         val btnRestartGame = findViewById<Button>(R.id.btnRestartGame)
