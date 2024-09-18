@@ -11,6 +11,7 @@ import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
+    private var stageLevel: Int = 1
     private lateinit var hero: Hero
     private lateinit var enemy: Enemy
     private lateinit var tvGameLog: TextView
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var imageDice: ImageView
     private lateinit var heroNameLevelText: TextView
     private lateinit var enemyNameLevelText: TextView
+    private lateinit var stageLevelTextView: TextView
     private val gameLog = mutableListOf<String>() // List to store the action log
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +53,9 @@ class MainActivity : AppCompatActivity() {
         imageDice = findViewById(R.id.imageDice)
         heroNameLevelText = findViewById(R.id.heroNameLevelText)
         enemyNameLevelText = findViewById(R.id.enemyNameLevelText)
+        stageLevelTextView = findViewById(R.id.stage_level)
+
+        updateStageLevel()
 
         spawnNewEnemy()
         enemyNameLevelText.text = getString(R.string.name_level, enemy.name, enemy.level)
@@ -340,12 +345,17 @@ class MainActivity : AppCompatActivity() {
 
             // Spawn a new enemy with scaled difficulty
             spawnNewEnemy()
+            stageLevel++
+            updateStageLevel()
 
 
             // Continue the game after leveling up
         } else if (hero.hp <= 0) {
             navigateToGameOver(false) // Hero loses, go to Game Over screen
         }
+    }
+    private fun updateStageLevel() {
+        stageLevelTextView.text = getString(R.string.stage_level_text, stageLevel)
     }
 
     private fun navigateToGameOver(isWin: Boolean) {

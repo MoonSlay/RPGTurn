@@ -230,6 +230,15 @@
         </LinearLayout>
     </FrameLayout>
 
+    <TextView
+        android:id="@+id/stage_level"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@id/heroBar" />
+
     <ImageView
         android:id="@+id/imageDice"
         android:layout_width="100dp"
