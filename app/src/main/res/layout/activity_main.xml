@@ -9,25 +9,40 @@
     tools:context=".MainActivity">
 
 
-    <ProgressBar
-        android:id="@+id/heroHpBar"
-        style="@android:style/Widget.ProgressBar.Horizontal"
+    <RelativeLayout
+        android:id="@+id/heroBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:max="100"
-        android:progress="100"
-        app:layout_constraintBottom_toTopOf="@+id/framelayout"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/framelayout">
+
+        <ProgressBar
+            android:id="@+id/heroHpBar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:progress="100"
+            android:layout_centerVertical="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"/>
+
+        <TextView
+            android:id="@+id/heroNameLevelText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"/>
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/imageViewHero"
         android:layout_width="237dp"
         android:layout_height="148dp"
-        android:layout_marginStart="96dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginBottom="4dp"
         android:src="@drawable/hero"
-        app:layout_constraintBottom_toTopOf="@+id/heroHpBar"
+        app:layout_constraintBottom_toTopOf="@+id/heroBar"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar

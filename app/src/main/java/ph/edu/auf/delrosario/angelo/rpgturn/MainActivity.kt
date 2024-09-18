@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var imageViewOrc: ImageView
     private lateinit var imageViewGoblin: ImageView
     private lateinit var imageDice: ImageView
+    private lateinit var heroNameLevelText: TextView
     private val gameLog = mutableListOf<String>() // List to store the action log
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,11 +32,10 @@ class MainActivity : AppCompatActivity() {
         // Initialize hero and enemy objects
         hero = Hero("Angelo",
             maxHP = Random.nextInt(180, 220),
-            attackPower = Random.nextInt(10, 20),
+            attackPower = Random.nextInt(50, 70),
             defense = Random.nextInt(8, 16),
             luck = Random.nextInt(1, 5),
             evasion = Random.nextInt(3, 8))
-
 
 
 
@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         imageViewOrc = findViewById(R.id.imageViewOrc)
         imageViewGoblin = findViewById(R.id.imageViewGoblin)
         imageDice = findViewById(R.id.imageDice)
+        heroNameLevelText = findViewById(R.id.heroNameLevelText)
 
         spawnNewEnemy()
 
@@ -56,6 +57,9 @@ class MainActivity : AppCompatActivity() {
         enemyHpBar.max = enemy.maxHP
         enemyHpBar.progress = enemy.hp
         updateHpBars()
+
+        heroNameLevelText.text = "${hero.name}, Level: ${hero.level}"
+
 
         imageDice.setOnClickListener {
             performRandomHeroAction()
@@ -138,6 +142,11 @@ class MainActivity : AppCompatActivity() {
             showStatsDialog("Goblin Stats", "HP: ${hero.hp}\nDEF: ${hero.defense}\nATK: ${hero.attackPower}\nLUCK: ${hero.luck}\nEVA: ${hero.evasion}")
         }
 
+
+    }
+
+    private fun updateHeroLevelDisplay() {
+        heroNameLevelText.text = "${hero.name}, Level: ${hero.level}"
     }
 
     fun spawnRandomEnemy(): Enemy {
@@ -210,9 +219,11 @@ class MainActivity : AppCompatActivity() {
             val experienceGained = 50 // Amount of experience gained from defeating an enemy
             hero.gainExperience(experienceGained)
             logAction("Hero gained $experienceGained XP and leveled up to level ${hero.level}.")
+            updateHeroLevelDisplay()
 
             // Spawn a new enemy with scaled difficulty
             spawnNewEnemy()
+
 
             // Continue the game after leveling up
         } else if (hero.hp <= 0) {
