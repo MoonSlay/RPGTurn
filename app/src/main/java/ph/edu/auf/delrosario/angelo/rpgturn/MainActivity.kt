@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         // Initialize hero and enemy objects
         hero = Hero("Angelo",
             maxHP = Random.nextInt(180, 220),
-            attackPower = Random.nextInt(50, 70),
+            attackPower = Random.nextInt(150, 270),
             defense = Random.nextInt(8, 16),
             luck = Random.nextInt(1, 5),
             evasion = Random.nextInt(3, 8))
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         enemyNameLevelText = findViewById(R.id.enemyNameLevelText)
 
         spawnNewEnemy()
-        enemyNameLevelText.text = "${enemy.name}, Level: ${enemy.level} "
+        enemyNameLevelText.text = getString(R.string.name_level, enemy.name, enemy.level)
 
         heroHpBar.max = hero.maxHP
         heroHpBar.progress = hero.hp
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         enemyHpBar.progress = enemy.hp
         updateHpBars()
 
-        heroNameLevelText.text = "${hero.name}, Level: ${hero.level}"
+        heroNameLevelText.text = getString(R.string.name_level, hero.name, hero.level)
 
 
         imageDice.setOnClickListener {
@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity() {
 
         btnSwiftCut.setOnClickListener {
             val damage = hero.swiftCut(enemy)
-            logAction("Hero performed Swift Cut on Enemy for $damage damage.")
+            logAction(R.string.attack_log, "Swift Cut", damage)
             updateHpBars()
             checkGameOver()
             enemyTurn()
@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity() {
 
         btnForwardSlash.setOnClickListener {
             val damage = hero.forwardSlash(enemy)
-            logAction("Hero performed Forward Slash on Enemy for $damage damage.")
+            logAction(R.string.attack_log, "Forward Slash", damage)
             updateHpBars()
             checkGameOver()
             enemyTurn()
@@ -136,23 +136,23 @@ class MainActivity : AppCompatActivity() {
             showStatsDialog("Hero Stats", "HP: ${hero.hp}\nDEF: ${hero.defense}\nATK: ${hero.attackPower}\nLUCK: ${hero.luck}\nEVA: ${hero.evasion}")
         }
         imageViewBlackDragon.setOnClickListener {
-            showStatsDialog("Black Dragon Stats", "HP: ${hero.hp}\nDEF: ${hero.defense}\nATK: ${hero.attackPower}\nLUCK: ${hero.luck}\nEVA: ${hero.evasion}")
+            showStatsDialog("Black Dragon Stats", "HP: ${enemy.hp}\nDEF: ${enemy.defense}\nATK: ${enemy.attackPower}\nLUCK: ${enemy.luck}\nEVA: ${enemy.evasion}")
         }
         imageViewOrc.setOnClickListener {
-            showStatsDialog("Orc Stats", "HP: ${hero.hp}\nDEF: ${hero.defense}\nATK: ${hero.attackPower}\nLUCK: ${hero.luck}\nEVA: ${hero.evasion}")
+            showStatsDialog("Orc Stats", "HP: ${enemy.hp}\nDEF: ${enemy.defense}\nATK: ${enemy.attackPower}\nLUCK: ${enemy.luck}\nEVA: ${enemy.evasion}")
         }
         imageViewGoblin.setOnClickListener {
-            showStatsDialog("Goblin Stats", "HP: ${hero.hp}\nDEF: ${hero.defense}\nATK: ${hero.attackPower}\nLUCK: ${hero.luck}\nEVA: ${hero.evasion}")
+            showStatsDialog("Goblin Stats", "HP: ${enemy.hp}\nDEF: ${enemy.defense}\nATK: ${enemy.attackPower}\nLUCK: ${enemy.luck}\nEVA: ${enemy.evasion}")
         }
 
 
     }
 
     private fun updateHeroLevelDisplay() {
-        heroNameLevelText.text = "${hero.name}, Level: ${hero.level}"
+        heroNameLevelText.text = getString(R.string.name_level, hero.name, hero.level)
     }
 
-    fun spawnRandomEnemy(): Enemy {
+    private fun spawnRandomEnemy(): Enemy {
         val levelMultiplier = hero.level
         return when ((1..3).random()) {
             1 -> Enemy("Goblin",
@@ -164,20 +164,21 @@ class MainActivity : AppCompatActivity() {
                 evasion = Random.nextInt(2, 5) * levelMultiplier)
 
             2 -> Enemy("Orc",
-                level = Random.nextInt(1, 5) + levelMultiplier,
-                maxHP = Random.nextInt(150, 200) * levelMultiplier,
-                attackPower = Random.nextInt(20, 25) * levelMultiplier,
-                defense = Random.nextInt(10, 15) * levelMultiplier,
+                level = Random.nextInt(1, 8) + levelMultiplier,
+                maxHP = Random.nextInt(150, 250) * levelMultiplier,
+                attackPower = Random.nextInt(15, 20) * levelMultiplier,
+                defense = Random.nextInt(15, 25) * levelMultiplier,
                 luck = Random.nextInt(1, 2) * levelMultiplier,
                 evasion = Random.nextInt(1, 3) * levelMultiplier,)
 
             3 -> Enemy("Black Dragon",
                 level = Random.nextInt(1, 5) + levelMultiplier,
-                maxHP = Random.nextInt(250, 300) * levelMultiplier,
+                maxHP = Random.nextInt(150, 200) * levelMultiplier,
                 attackPower = Random.nextInt(30, 40) * levelMultiplier,
-                defense = Random.nextInt(15, 20) * levelMultiplier,
+                defense = Random.nextInt(10, 25) * levelMultiplier,
                 luck = Random.nextInt(3, 5) * levelMultiplier,
                 evasion = Random.nextInt(3, 5) * levelMultiplier,)
+
             else -> Enemy("Goblin",
                 level = Random.nextInt(1, 5) + levelMultiplier,
                 maxHP = Random.nextInt(80, 100) * levelMultiplier,
@@ -190,8 +191,14 @@ class MainActivity : AppCompatActivity() {
 
     // Function to log an action and update the game log display
     private fun logAction(action: String) {
-        gameLog.add(action)  // Add the action to the log
-        tvGameLog.text = action  // Display the latest action
+        gameLog.add(action)
+        tvGameLog.text = action
+    }
+
+    private fun logAction(actionId: Int, vararg formatArgs: Any) {
+        val action = getString(actionId, *formatArgs)
+        gameLog.add(action)
+        tvGameLog.text = action
     }
 
     private fun showFullLogDialog() {
@@ -220,25 +227,6 @@ class MainActivity : AppCompatActivity() {
         enemyHpBar.progress = enemy.hp
     }
 
-    // Check if the game is over (either hero or enemy reaches 0 HP)
-    private fun checkGameOver() {
-        if (enemy.hp <= 0) {
-            // Hero gains experience
-            val experienceGained = 50 // Amount of experience gained from defeating an enemy
-            hero.gainExperience(experienceGained)
-            logAction("Hero gained $experienceGained XP and leveled up to level ${hero.level}.")
-            updateHeroLevelDisplay()
-
-            // Spawn a new enemy with scaled difficulty
-            spawnNewEnemy()
-
-
-            // Continue the game after leveling up
-        } else if (hero.hp <= 0) {
-            navigateToGameOver(false) // Hero loses, go to Game Over screen
-        }
-    }
-
     // Function to spawn a new enemy with scaled stats
     private fun spawnNewEnemy() {
         // Spawn a new random enemy
@@ -260,18 +248,13 @@ class MainActivity : AppCompatActivity() {
         logAction("A wild ${enemy.name} appeared!")
     }
 
-    // Add XP and level-up messages to the game log
-    private fun logLevelUpMessage() {
-        logAction("Hero leveled up to level ${hero.level}!")
-    }
-
     private fun enemyTurn() {
         if (enemy.hp > 0) {
             val randomAction = (1..3).random()
             when (randomAction) {
                 1 -> {
-                    val randomAction = (1..2).random()
-                    when (randomAction) {
+                    val attackType = (1..2).random()
+                    when (attackType) {
                         1 -> {
                             val damage = enemy.swiftCut(hero)
                             logAction("Enemy used Swift Cut on Hero for $damage damage.")
@@ -309,8 +292,8 @@ class MainActivity : AppCompatActivity() {
             val randomAction = (1..3).random()
             when (randomAction) {
                 1 -> {
-                    val randomAction = (1..2).random()
-                    when (randomAction) {
+                    val attackType = (1..2).random()
+                    when (attackType) {
                         1 -> {
                             val damage = hero.swiftCut(enemy)
                             logAction("Hero used Swift Cut on Enemy for $damage damage.")
@@ -340,6 +323,25 @@ class MainActivity : AppCompatActivity() {
                     enemyTurn()
                 }
             }
+        }
+    }
+
+    // Check if the game is over (either hero or enemy reaches 0 HP)
+    private fun checkGameOver() {
+        if (enemy.hp <= 0) {
+            // Hero gains experience
+            val experienceGained = 50 // Amount of experience gained from defeating an enemy
+            hero.gainExperience(experienceGained)
+            logAction("Hero gained $experienceGained XP and leveled up to level ${hero.level}.")
+            updateHeroLevelDisplay()
+
+            // Spawn a new enemy with scaled difficulty
+            spawnNewEnemy()
+
+
+            // Continue the game after leveling up
+        } else if (hero.hp <= 0) {
+            navigateToGameOver(false) // Hero loses, go to Game Over screen
         }
     }
 

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RPGTurn</string>
+    <string name="attack_log">Hero performed %1$s on Enemy for %2$d damage.</string>
+    <string name="name_level">%1$s, Level: %2$d</string>
 </resources>
