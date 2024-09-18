@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select your character class:"
+        android:textSize="18sp" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupClasses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioVampire"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vampire" />
+
+        <RadioButton
+            android:id="@+id/radioVanguard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vanguard" />
+
+        <RadioButton
+            android:id="@+id/radioWizard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wizard" />
+
+        <RadioButton
+            android:id="@+id/radioAssassin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Assassin" />
+
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/editTextHeroName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your hero's name" />
+
+    <Button
+        android:id="@+id/btnStartGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Game"
+        android:layout_gravity="center" />
+
+</LinearLayout>

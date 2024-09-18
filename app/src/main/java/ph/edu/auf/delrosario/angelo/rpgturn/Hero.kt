@@ -2,7 +2,7 @@ package ph.edu.auf.delrosario.angelo.rpgturn
 
 import kotlin.random.Random
 
-class Hero(
+abstract class Hero(
     name: String,
     maxHP: Int,
     hp: Int = maxHP,
@@ -16,6 +16,9 @@ class Hero(
     var experienceToNextLevel: Int = 100 // XP needed for the next level
 ) : Character(name, maxHP, hp, defense,vitality, agility, attack, luck) {
 
+
+    abstract fun NormalSkill(opponent: Character): Int
+    abstract fun SpecialSkill(opponent: Character): Int
 
     override fun defend(): Int {
         val reducedDamage = (defense * 0.4).toInt()
@@ -53,24 +56,6 @@ class Hero(
             experience -= experienceToNextLevel
             levelUp()
         }
-    }
-
-    fun biteAttack(opponent: Character): Int {
-        val damage = (attack * 0.8).toInt()
-        val healedHP = (damage * 0.2).toInt() // Heal 20% of damage dealt
-        opponent.hp -= damage
-        hp += healedHP
-        println("$name uses Bite Attack on ${opponent.name} for $damage damage and heals $healedHP HP.")
-        return damage
-    }
-
-    fun bloodSiphon(opponent: Character): Int {
-        val damage = (attack * 1.5).toInt()
-        val healedHP = (damage * 0.5).toInt() // Heal 50% of damage dealt
-        opponent.hp -= damage
-        hp += healedHP
-        println("$name uses Blood Siphon on ${opponent.name} for $damage damage and heals $healedHP HP.")
-        return damage
     }
 
 }

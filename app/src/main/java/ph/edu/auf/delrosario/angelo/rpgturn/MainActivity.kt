@@ -32,14 +32,47 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Initialize hero and enemy objects
-        hero = Hero("Angelo",
-            maxHP = Random.nextInt(180, 220),
-            attack = Random.nextInt(150, 270),
-            vitality = Random.nextInt(1, 5),
-            defense = Random.nextInt(8, 16),
-            agility = Random.nextInt(8, 16),
-            luck = Random.nextInt(1, 5))
+        val heroName = intent.getStringExtra("heroName") ?: "Hero"
+        val heroClass = intent.getStringExtra("heroClass") ?: "Vampire"
+
+        // Initialize hero object based on class
+        hero = when (heroClass) {
+            "Vampire" -> Vampire(heroName,
+                maxHP = Random.nextInt(120, 150),
+                attack = Random.nextInt(40, 60),
+                vitality = Random.nextInt(2, 5),
+                defense = Random.nextInt(8, 16),
+                agility = Random.nextInt(8, 16),
+                luck = Random.nextInt(1, 5))
+            "Vanguard" -> Vanguard(heroName,
+                maxHP = Random.nextInt(180, 220),
+                attack = Random.nextInt(150, 270),
+                vitality = Random.nextInt(1, 5),
+                defense = Random.nextInt(8, 16),
+                agility = Random.nextInt(8, 16),
+                luck = Random.nextInt(1, 5))
+            "Wizard" -> Wizard(heroName,
+                maxHP = Random.nextInt(180, 220),
+                attack = Random.nextInt(150, 270),
+                vitality = Random.nextInt(1, 5),
+                defense = Random.nextInt(8, 16),
+                agility = Random.nextInt(8, 16),
+                luck = Random.nextInt(1, 5))
+            "Assassin" -> Assassin(heroName,
+                maxHP = Random.nextInt(180, 220),
+                attack = Random.nextInt(150, 270),
+                vitality = Random.nextInt(1, 5),
+                defense = Random.nextInt(8, 16),
+                agility = Random.nextInt(8, 16),
+                luck = Random.nextInt(1, 5))
+            else -> Vampire(heroName,
+                maxHP = Random.nextInt(180, 220),
+                attack = Random.nextInt(150, 270),
+                vitality = Random.nextInt(1, 5),
+                defense = Random.nextInt(8, 16),
+                agility = Random.nextInt(8, 16),
+                luck = Random.nextInt(1, 5))
+        }
 
 
 
@@ -103,7 +136,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnNormal.setOnClickListener {
-            val damage = hero.biteAttack(enemy)
+            val damage = hero.NormalSkill(enemy)
             logAction(R.string.attack_log, "biteAttack", damage)
             updateHpBars()
             checkGameOver()
@@ -111,7 +144,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnSpecial.setOnClickListener {
-            val damage = hero.bloodSiphon(enemy)
+            val damage = hero.SpecialSkill(enemy)
             logAction(R.string.attack_log, "blood siphon", damage)
             updateHpBars()
             checkGameOver()
@@ -308,14 +341,14 @@ class MainActivity : AppCompatActivity() {
                     val attackType = (1..2).random()
                     when (attackType) {
                         1 -> {
-                            val damage = hero.biteAttack(enemy)
+                            val damage = hero.NormalSkill(enemy)
                             logAction("Hero used Swift Cut on Enemy for $damage damage.")
                             updateHpBars()
                             checkGameOver()
                             enemyTurn()
                         }
                         2 -> {
-                            val damage = hero.bloodSiphon(enemy)
+                            val damage = hero.SpecialSkill(enemy)
                             logAction("Hero used Forward Slash on Enemy for $damage damage.")
                             updateHpBars()
                             checkGameOver()

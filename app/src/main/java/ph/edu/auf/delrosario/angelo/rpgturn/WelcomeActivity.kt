@@ -13,8 +13,8 @@ class WelcomeActivity : AppCompatActivity() {
 
         val btnStartGame = findViewById<Button>(R.id.btnStartGame)
         btnStartGame.setOnClickListener {
-            // Start the main game activity
-            val intent = Intent(this, MainActivity::class.java)
+            // Start the character selection activity
+            val intent = Intent(this, CharacterSelectionActivity::class.java)
             startActivity(intent)
             finish() // Finish the welcome screen so we can't go back to it
         }
