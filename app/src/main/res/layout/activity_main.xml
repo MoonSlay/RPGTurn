@@ -5,26 +5,27 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".MainActivity">
+
 
     <ProgressBar
         android:id="@+id/heroHpBar"
         style="@android:style/Widget.ProgressBar.Horizontal"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:max="100"
         android:progress="100"
         app:layout_constraintBottom_toTopOf="@+id/framelayout"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="8dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageViewHero"
-        android:layout_width="186dp"
-        android:layout_height="108dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="4dp"
+        android:layout_width="237dp"
+        android:layout_height="148dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginBottom="12dp"
         android:src="@drawable/hero"
         app:layout_constraintBottom_toTopOf="@+id/heroHpBar"
         app:layout_constraintStart_toStartOf="parent" />
@@ -32,55 +33,50 @@
     <ProgressBar
         android:id="@+id/enemyHpBar"
         style="@android:style/Widget.ProgressBar.Horizontal"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:max="100"
         android:progress="100"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <ImageView
         android:id="@+id/imageViewBlackDragon"
         android:layout_width="133dp"
         android:layout_height="153dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="44dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="140dp"
         android:src="@drawable/dragon"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageViewOrc"
         android:layout_width="133dp"
         android:layout_height="153dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="44dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="104dp"
         android:src="@drawable/orc"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageViewGoblin"
         android:layout_width="133dp"
         android:layout_height="153dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="44dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="108dp"
         android:src="@drawable/goblin"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
         android:id="@+id/framelayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/gamelog"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/gamelog">
 
         <!-- Background ImageView -->
         <ImageView
@@ -177,12 +173,13 @@
         android:id="@+id/imageDice"
         android:layout_width="100dp"
         android:layout_height="96dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/dice"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/gamelog"
         android:layout_marginEnd="40dp"
-        android:layout_marginBottom="50dp" />
+        android:layout_marginBottom="50dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/gamelog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/dice" />
+
     <LinearLayout
         android:id="@+id/gamelog"
         android:layout_width="match_parent"
@@ -190,6 +187,7 @@
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent">
+
         <TextView
             android:id="@+id/tvGameLog"
             android:layout_width="wrap_content"
@@ -205,5 +203,24 @@
             android:layout_marginTop="5dp"
             android:text="Show Log" />
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
