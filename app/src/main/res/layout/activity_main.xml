@@ -36,12 +36,45 @@
     </RelativeLayout>
 
     <ImageView
-        android:id="@+id/imageViewHero"
+        android:id="@+id/imageVampire"
         android:layout_width="237dp"
         android:layout_height="148dp"
         android:layout_marginStart="84dp"
         android:layout_marginBottom="4dp"
-        android:src="@drawable/hero"
+        android:src="@drawable/vampire"
+        app:layout_constraintBottom_toTopOf="@+id/heroBar"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/hero_image"/>
+
+    <ImageView
+        android:id="@+id/imageVanguard"
+        android:layout_width="237dp"
+        android:layout_height="148dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginBottom="4dp"
+        android:src="@drawable/vanguard"
+        app:layout_constraintBottom_toTopOf="@+id/heroBar"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/hero_image"/>
+
+    <ImageView
+        android:id="@+id/imageAssassin"
+        android:layout_width="237dp"
+        android:layout_height="148dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginBottom="4dp"
+        android:src="@drawable/assasin"
+        app:layout_constraintBottom_toTopOf="@+id/heroBar"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/hero_image"/>
+
+    <ImageView
+        android:id="@+id/imageWizard"
+        android:layout_width="237dp"
+        android:layout_height="148dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginBottom="4dp"
+        android:src="@drawable/wizard"
         app:layout_constraintBottom_toTopOf="@+id/heroBar"
         app:layout_constraintStart_toStartOf="parent"
         android:contentDescription="@string/hero_image"/>

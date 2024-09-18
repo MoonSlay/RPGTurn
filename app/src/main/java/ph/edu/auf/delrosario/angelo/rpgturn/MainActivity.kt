@@ -18,7 +18,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var heroHpBar: ProgressBar
     private lateinit var enemyHpBar: ProgressBar
     private lateinit var llAttackOptions: LinearLayout
-    private lateinit var imageViewHero: ImageView
+    private lateinit var imageVampire: ImageView
+    private lateinit var imageVanguard: ImageView
+    private lateinit var imageAssassin: ImageView
+    private lateinit var imageWizard: ImageView
     private lateinit var imageViewBlackDragon: ImageView
     private lateinit var imageViewOrc: ImageView
     private lateinit var imageViewGoblin: ImageView
@@ -28,59 +31,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var stageLevelTextView: TextView
     private val gameLog = mutableListOf<String>() // List to store the action log
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val heroName = intent.getStringExtra("heroName") ?: "Hero"
-        val heroClass = intent.getStringExtra("heroClass") ?: "Vampire"
-
-        // Initialize hero object based on class
-        hero = when (heroClass) {
-            "Vampire" -> Vampire(heroName,
-                maxHP = Random.nextInt(120, 150),
-                attack = Random.nextInt(40, 60),
-                vitality = Random.nextInt(2, 5),
-                defense = Random.nextInt(8, 16),
-                agility = Random.nextInt(8, 16),
-                luck = Random.nextInt(1, 5))
-            "Vanguard" -> Vanguard(heroName,
-                maxHP = Random.nextInt(180, 220),
-                attack = Random.nextInt(150, 270),
-                vitality = Random.nextInt(1, 5),
-                defense = Random.nextInt(8, 16),
-                agility = Random.nextInt(8, 16),
-                luck = Random.nextInt(1, 5))
-            "Wizard" -> Wizard(heroName,
-                maxHP = Random.nextInt(180, 220),
-                attack = Random.nextInt(150, 270),
-                vitality = Random.nextInt(1, 5),
-                defense = Random.nextInt(8, 16),
-                agility = Random.nextInt(8, 16),
-                luck = Random.nextInt(1, 5))
-            "Assassin" -> Assassin(heroName,
-                maxHP = Random.nextInt(180, 220),
-                attack = Random.nextInt(150, 270),
-                vitality = Random.nextInt(1, 5),
-                defense = Random.nextInt(8, 16),
-                agility = Random.nextInt(8, 16),
-                luck = Random.nextInt(1, 5))
-            else -> Vampire(heroName,
-                maxHP = Random.nextInt(180, 220),
-                attack = Random.nextInt(150, 270),
-                vitality = Random.nextInt(1, 5),
-                defense = Random.nextInt(8, 16),
-                agility = Random.nextInt(8, 16),
-                luck = Random.nextInt(1, 5))
-        }
-
-
 
         // Hook UI elements
         tvGameLog = findViewById(R.id.tvGameLog)
         heroHpBar = findViewById(R.id.heroHpBar)
         enemyHpBar = findViewById(R.id.enemyHpBar)
-        imageViewHero = findViewById(R.id.imageViewHero)
         imageViewBlackDragon = findViewById(R.id.imageViewBlackDragon)
         imageViewOrc = findViewById(R.id.imageViewOrc)
         imageViewGoblin = findViewById(R.id.imageViewGoblin)
@@ -88,6 +47,75 @@ class MainActivity : AppCompatActivity() {
         heroNameLevelText = findViewById(R.id.heroNameLevelText)
         enemyNameLevelText = findViewById(R.id.enemyNameLevelText)
         stageLevelTextView = findViewById(R.id.stage_level)
+        imageVampire = findViewById(R.id.imageVampire)
+        imageVanguard = findViewById(R.id.imageVanguard)
+        imageAssassin = findViewById(R.id.imageAssassin)
+        imageWizard = findViewById(R.id.imageWizard)
+
+
+        val heroName = intent.getStringExtra("heroName") ?: "Hero"
+        val heroClass = intent.getStringExtra("heroClass") ?: "Vampire"
+
+        imageVampire.visibility = View.GONE
+        imageVanguard.visibility = View.GONE
+        imageAssassin.visibility = View.GONE
+        imageWizard.visibility = View.GONE
+
+        // Initialize hero object based on class
+        hero = when (heroClass) {
+            "Vampire" -> {
+                imageVampire.visibility = View.VISIBLE
+                Vampire(heroName,
+                    maxHP = Random.nextInt(120, 150),
+                    attack = Random.nextInt(40, 60),
+                    vitality = Random.nextInt(2, 5),
+                    defense = Random.nextInt(8, 16),
+                    agility = Random.nextInt(8, 16),
+                    luck = Random.nextInt(1, 5))
+            }
+            "Vanguard" -> {
+                imageVanguard.visibility = View.VISIBLE
+                Vanguard(heroName,
+                    maxHP = Random.nextInt(180, 220),
+                    attack = Random.nextInt(150, 270),
+                    vitality = Random.nextInt(1, 5),
+                    defense = Random.nextInt(8, 16),
+                    agility = Random.nextInt(8, 16),
+                    luck = Random.nextInt(1, 5))
+            }
+            "Wizard" -> {
+                imageWizard.visibility = View.VISIBLE
+                Wizard(heroName,
+                    maxHP = Random.nextInt(180, 220),
+                    attack = Random.nextInt(150, 270),
+                    vitality = Random.nextInt(1, 5),
+                    defense = Random.nextInt(8, 16),
+                    agility = Random.nextInt(8, 16),
+                    luck = Random.nextInt(1, 5))
+            }
+            "Assassin" -> {
+                imageAssassin.visibility = View.VISIBLE
+                Assassin(heroName,
+                    maxHP = Random.nextInt(180, 220),
+                    attack = Random.nextInt(150, 270),
+                    vitality = Random.nextInt(1, 5),
+                    defense = Random.nextInt(8, 16),
+                    agility = Random.nextInt(8, 16),
+                    luck = Random.nextInt(1, 5))
+            }
+            else -> {
+                imageVampire.visibility = View.VISIBLE
+                Vampire(heroName,
+                    maxHP = Random.nextInt(180, 220),
+                    attack = Random.nextInt(150, 270),
+                    vitality = Random.nextInt(1, 5),
+                    defense = Random.nextInt(8, 16),
+                    agility = Random.nextInt(8, 16),
+                    luck = Random.nextInt(1, 5))
+            }
+        }
+
+
 
         updateStageLevel()
 
@@ -171,8 +199,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Set image click listeners to show stats in modal
-        imageViewHero.setOnClickListener {
-            showStatsDialog("Hero Stats", "ATK: ${hero.attack}\nDEF: ${hero.defense}\nVIT: ${hero.vitality}AGI: ${hero.agility}LUCK: ${hero.luck}")
+        imageVanguard.setOnClickListener {
+            showStatsDialog("Crimson Vanguard", "ATK: ${hero.attack}\nDEF: ${hero.defense}\nVIT: ${hero.vitality}AGI: ${hero.agility}LUCK: ${hero.luck}")
+        }
+        imageVampire.setOnClickListener {
+            showStatsDialog("Vampire Lord", "ATK: ${hero.attack}\nDEF: ${hero.defense}\nVIT: ${hero.vitality}AGI: ${hero.agility}LUCK: ${hero.luck}")
+        }
+        imageAssassin.setOnClickListener {
+            showStatsDialog("Shadowblade Assassin", "ATK: ${hero.attack}\nDEF: ${hero.defense}\nVIT: ${hero.vitality}AGI: ${hero.agility}LUCK: ${hero.luck}")
+        }
+        imageWizard.setOnClickListener {
+            showStatsDialog("Water Emperor", "ATK: ${hero.attack}\nDEF: ${hero.defense}\nVIT: ${hero.vitality}AGI: ${hero.agility}LUCK: ${hero.luck}")
         }
         imageViewBlackDragon.setOnClickListener {
             showStatsDialog("Black Dragon Stats", "ATK: ${enemy.attack}\nDEF: ${enemy.defense}\nVIT: ${enemy.vitality}AGI: ${enemy.agility}LUCK: ${enemy.luck}")
