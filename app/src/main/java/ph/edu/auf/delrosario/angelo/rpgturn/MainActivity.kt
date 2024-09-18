@@ -25,6 +25,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var imageViewBlackDragon: ImageView
     private lateinit var imageViewOrc: ImageView
     private lateinit var imageViewGoblin: ImageView
+    private lateinit var imageViewLootBag: ImageView
+    private lateinit var imageViewLootGoblin: ImageView
+    private lateinit var imageViewLichKing: ImageView
     private lateinit var imageDice: ImageView
     private lateinit var heroNameLevelText: TextView
     private lateinit var enemyNameLevelText: TextView
@@ -43,6 +46,9 @@ class MainActivity : AppCompatActivity() {
         imageViewBlackDragon = findViewById(R.id.imageViewBlackDragon)
         imageViewOrc = findViewById(R.id.imageViewOrc)
         imageViewGoblin = findViewById(R.id.imageViewGoblin)
+        imageViewLootGoblin = findViewById(R.id.imageViewLootGoblin)
+        imageViewLootBag = findViewById(R.id.imageViewLootBag)
+        imageViewLichKing = findViewById(R.id.imageViewLichKing)
         imageDice = findViewById(R.id.imageDice)
         heroNameLevelText = findViewById(R.id.heroNameLevelText)
         enemyNameLevelText = findViewById(R.id.enemyNameLevelText)
@@ -200,25 +206,34 @@ class MainActivity : AppCompatActivity() {
 
         // Set image click listeners to show stats in modal
         imageVanguard.setOnClickListener {
-            showStatsDialog("Crimson Vanguard", "ATK: ${hero.attack}\nDEF: ${hero.defense}\nVIT: ${hero.vitality}AGI: ${hero.agility}LUCK: ${hero.luck}")
+            showStatsDialog("Crimson Vanguard", "ATK: ${hero.attack}\nDEF: ${hero.defense}\nVIT: ${hero.vitality}\nAGI: ${hero.agility}\nLUCK: ${hero.luck}")
         }
         imageVampire.setOnClickListener {
-            showStatsDialog("Vampire Lord", "ATK: ${hero.attack}\nDEF: ${hero.defense}\nVIT: ${hero.vitality}AGI: ${hero.agility}LUCK: ${hero.luck}")
+            showStatsDialog("Vampire Lord", "ATK: ${hero.attack}\nDEF: ${hero.defense}\nVIT: ${hero.vitality}\nAGI: ${hero.agility}\nLUCK: ${hero.luck}")
         }
         imageAssassin.setOnClickListener {
-            showStatsDialog("Shadowblade Assassin", "ATK: ${hero.attack}\nDEF: ${hero.defense}\nVIT: ${hero.vitality}AGI: ${hero.agility}LUCK: ${hero.luck}")
+            showStatsDialog("Shadowblade Assassin", "ATK: ${hero.attack}\nDEF: ${hero.defense}\nVIT: ${hero.vitality}\nAGI: ${hero.agility}\nLUCK: ${hero.luck}")
         }
         imageWizard.setOnClickListener {
-            showStatsDialog("Water Emperor", "ATK: ${hero.attack}\nDEF: ${hero.defense}\nVIT: ${hero.vitality}AGI: ${hero.agility}LUCK: ${hero.luck}")
+            showStatsDialog("Water Emperor", "ATK: ${hero.attack}\nDEF: ${hero.defense}\nVIT: ${hero.vitality}\nAGI: ${hero.agility}\nLUCK: ${hero.luck}")
         }
         imageViewBlackDragon.setOnClickListener {
-            showStatsDialog("Black Dragon Stats", "ATK: ${enemy.attack}\nDEF: ${enemy.defense}\nVIT: ${enemy.vitality}AGI: ${enemy.agility}LUCK: ${enemy.luck}")
+            showStatsDialog("Black Dragon Stats", "ATK: ${enemy.attack}\nDEF: ${enemy.defense}\nVIT: ${enemy.vitality}\nAGI: ${enemy.agility}\nLUCK: ${enemy.luck}")
         }
         imageViewOrc.setOnClickListener {
-            showStatsDialog("Orc Stats", "ATK: ${enemy.attack}\nDEF: ${enemy.defense}\nVIT: ${enemy.vitality}AGI: ${enemy.agility}LUCK: ${enemy.luck}")
+            showStatsDialog("Orc Stats", "ATK: ${enemy.attack}\nDEF: ${enemy.defense}\nVIT: ${enemy.vitality}\nAGI: ${enemy.agility}\nLUCK: ${enemy.luck}")
         }
         imageViewGoblin.setOnClickListener {
-            showStatsDialog("Goblin Stats", "ATK: ${enemy.attack}\nDEF: ${enemy.defense}\nVIT: ${enemy.vitality}AGI: ${enemy.agility}LUCK: ${enemy.luck}")
+            showStatsDialog("Goblin Stats", "ATK: ${enemy.attack}\nDEF: ${enemy.defense}\nVIT: ${enemy.vitality}\nAGI: ${enemy.agility}\nLUCK: ${enemy.luck}")
+        }
+        imageViewLootGoblin.setOnClickListener {
+            showStatsDialog("Loot Goblin", "ATK: ${enemy.attack}\nDEF: ${enemy.defense}\nVIT: ${enemy.vitality}\nAGI: ${enemy.agility}\nLUCK: ${enemy.luck}")
+        }
+        imageViewLootBag.setOnClickListener {
+            showStatsDialog("Loot Bag", "ATK: ${enemy.attack}\nDEF: ${enemy.defense}\nVIT: ${enemy.vitality}\nAGI: ${enemy.agility}\nLUCK: ${enemy.luck}")
+        }
+        imageViewLichKing.setOnClickListener {
+            showStatsDialog("Lich King", "ATK: ${enemy.attack}\nDEF: ${enemy.defense}\nVIT: ${enemy.vitality}\nAGI: ${enemy.agility}\nLUCK: ${enemy.luck}")
         }
 
 
@@ -228,9 +243,13 @@ class MainActivity : AppCompatActivity() {
         heroNameLevelText.text = getString(R.string.name_level, hero.name, hero.level)
     }
 
+    private fun updateEnemyLevelDisplay() {
+        enemyNameLevelText.text = getString(R.string.name_level, enemy.name, enemy.level)
+    }
+
     private fun spawnRandomEnemy(): Enemy {
         val levelMultiplier = hero.level
-        return when ((1..3).random()) {
+        return when ((1..6).random()) {
             1 -> Enemy("Goblin",
                 level = Random.nextInt(1, 5) + levelMultiplier,
                 maxHP = Random.nextInt(80, 100) * levelMultiplier,
@@ -250,6 +269,30 @@ class MainActivity : AppCompatActivity() {
                 luck = Random.nextInt(5, 10) * levelMultiplier)
 
             3 -> Enemy("Black Dragon",
+                level = Random.nextInt(1, 5) + levelMultiplier,
+                maxHP = Random.nextInt(80, 100) * levelMultiplier,
+                defense = Random.nextInt(5, 10) * levelMultiplier,
+                vitality = Random.nextInt(5, 10) * levelMultiplier,
+                agility = Random.nextInt(5, 10) * levelMultiplier,
+                attack = Random.nextInt(10, 15) * levelMultiplier,
+                luck = Random.nextInt(5, 10) * levelMultiplier)
+            4 -> Enemy("Loot Goblin",
+                level = Random.nextInt(1, 5) + levelMultiplier,
+                maxHP = Random.nextInt(80, 100) * levelMultiplier,
+                defense = Random.nextInt(5, 10) * levelMultiplier,
+                vitality = Random.nextInt(5, 10) * levelMultiplier,
+                agility = Random.nextInt(5, 10) * levelMultiplier,
+                attack = Random.nextInt(10, 15) * levelMultiplier,
+                luck = Random.nextInt(5, 10) * levelMultiplier)
+            5 -> Enemy("Lich King",
+                level = Random.nextInt(1, 5) + levelMultiplier,
+                maxHP = Random.nextInt(80, 100) * levelMultiplier,
+                defense = Random.nextInt(5, 10) * levelMultiplier,
+                vitality = Random.nextInt(5, 10) * levelMultiplier,
+                agility = Random.nextInt(5, 10) * levelMultiplier,
+                attack = Random.nextInt(10, 15) * levelMultiplier,
+                luck = Random.nextInt(5, 10) * levelMultiplier)
+            6 -> Enemy("Loot Bag",
                 level = Random.nextInt(1, 5) + levelMultiplier,
                 maxHP = Random.nextInt(80, 100) * levelMultiplier,
                 defense = Random.nextInt(5, 10) * levelMultiplier,
@@ -311,7 +354,10 @@ class MainActivity : AppCompatActivity() {
         mapOf(
             "Black Dragon" to imageViewBlackDragon,
             "Goblin" to imageViewGoblin,
-            "Orc" to imageViewOrc
+            "Orc" to imageViewOrc,
+            "Loot Bag" to imageViewLootBag,
+            "Loot Goblin" to imageViewLootGoblin,
+            "Lich King" to imageViewLichKing
         )
     }
 
@@ -325,6 +371,8 @@ class MainActivity : AppCompatActivity() {
 
         // Show the corresponding enemy image based on the spawned enemy
         enemyImageViews[enemy.name]?.visibility = View.VISIBLE
+
+        updateEnemyLevelDisplay()
 
         // Update the HP bars and game log
         updateHpBars()

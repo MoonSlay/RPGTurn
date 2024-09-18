@@ -141,6 +141,39 @@
         app:layout_constraintTop_toTopOf="parent"
         android:contentDescription="@string/enemy_image"/>
 
+    <ImageView
+        android:id="@+id/imageViewLootGoblin"
+        android:layout_width="133dp"
+        android:layout_height="153dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="108dp"
+        android:src="@drawable/lootgoblin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/enemy_image"/>
+
+    <ImageView
+        android:id="@+id/imageViewLootBag"
+        android:layout_width="133dp"
+        android:layout_height="153dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="108dp"
+        android:src="@drawable/loot_bag"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/enemy_image"/>
+
+    <ImageView
+        android:id="@+id/imageViewLichKing"
+        android:layout_width="133dp"
+        android:layout_height="153dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="108dp"
+        android:src="@drawable/lich_king"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/enemy_image"/>
+
     <FrameLayout
         android:id="@+id/framelayout"
         android:layout_width="match_parent"
