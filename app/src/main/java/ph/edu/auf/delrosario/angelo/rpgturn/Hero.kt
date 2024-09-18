@@ -7,30 +7,15 @@ class Hero(
     maxHP: Int,
     hp: Int = maxHP,
     defense: Int,
-    attackPower: Int,
+    vitality: Int,
+    agility: Int,
+    attack: Int,
     luck: Int,
-    evasion: Int,
     var level: Int = 1,          // Hero starts at level 1
     var experience: Int = 0,     // Hero starts with 0 XP
     var experienceToNextLevel: Int = 100 // XP needed for the next level
-) : Character(name, maxHP, hp, defense, attackPower, luck, evasion) {
+) : Character(name, maxHP, hp, defense,vitality, agility, attack, luck) {
 
-
-    override fun swiftCut(opponent: Character): Int {
-        val damage = (attackPower * 1.2).toInt() - opponent.defend()
-        opponent.hp -= damage
-        println("$name performs Swift Cut on ${opponent.name} for $damage damage.")
-        return damage
-    }
-
-    override fun forwardSlash(opponent: Character): Int {
-        val crit = Random.nextInt(0, 3)
-        val luckcrit = luck * 0.1 + crit
-        val damage = attackPower * luckcrit.toInt() - opponent.defend()
-        opponent.hp -= damage
-        println("$name performs Forward Slash on ${opponent.name} for $damage damage.")
-        return damage
-    }
 
     override fun defend(): Int {
         val reducedDamage = (defense * 0.4).toInt()
@@ -55,10 +40,9 @@ class Hero(
         level++
         experienceToNextLevel += 100 // Increase XP requirement for next level
         hp += 20                      // Increase max HP
-        attackPower += 5               // Increase attack power
+        attack += 5               // Increase attack power
         defense += 3                   // Increase defense
         luck += 1                      // Increase luck
-        evasion += 1                   // Increase evasion
         println("Hero leveled up to Level $level!")
     }
 
@@ -69,6 +53,24 @@ class Hero(
             experience -= experienceToNextLevel
             levelUp()
         }
+    }
+
+    fun biteAttack(opponent: Character): Int {
+        val damage = (attack * 0.8).toInt()
+        val healedHP = (damage * 0.2).toInt() // Heal 20% of damage dealt
+        opponent.hp -= damage
+        hp += healedHP
+        println("$name uses Bite Attack on ${opponent.name} for $damage damage and heals $healedHP HP.")
+        return damage
+    }
+
+    fun bloodSiphon(opponent: Character): Int {
+        val damage = (attack * 1.5).toInt()
+        val healedHP = (damage * 0.5).toInt() // Heal 50% of damage dealt
+        opponent.hp -= damage
+        hp += healedHP
+        println("$name uses Blood Siphon on ${opponent.name} for $damage damage and heals $healedHP HP.")
+        return damage
     }
 
 }

@@ -5,12 +5,11 @@ abstract class Character(
     var maxHP: Int,
     var hp: Int,
     var defense: Int,
-    var attackPower: Int,
+    var vitality: Int,
+    var agility: Int,
+    var attack: Int,
     var luck: Int,
-    var evasion: Int
 ) {
-    abstract fun swiftCut(opponent: Character): Int
-    abstract fun forwardSlash(opponent: Character): Int
     abstract fun defend(): Int
     abstract fun heal(): Int
 }

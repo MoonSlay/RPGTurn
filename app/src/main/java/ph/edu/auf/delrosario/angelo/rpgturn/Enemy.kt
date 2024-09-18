@@ -7,27 +7,12 @@ class Enemy(
     maxHP: Int,
     hp: Int = maxHP,
     defense: Int,
-    attackPower: Int,
+    vitality: Int,
+    agility: Int,
+    attack: Int,
     luck: Int,
-    evasion: Int,
     var level: Int
-) : Character(name, maxHP, hp, defense, attackPower, luck, evasion) {
-    override fun swiftCut(opponent: Character): Int {
-        val damage = (attackPower * 1.2).toInt() - opponent.defend()
-        opponent.hp -= damage
-        println("$name performs Swift Cut on ${opponent.name} for $damage damage.")
-        return damage
-    }
-
-    override fun forwardSlash(opponent: Character): Int {
-        val crit = Random.nextInt(0, 3)
-        val luckcrit = luck * 0.1 + crit
-        val damage = attackPower * luckcrit.toInt() - opponent.defend()
-        opponent.hp -= damage
-        println("$name performs Forward Slash on ${opponent.name} for $damage damage.")
-        return damage
-    }
-
+) : Character(name, maxHP, hp, defense,vitality, agility, attack, luck) {
     override fun defend(): Int {
         val reducedDamage = (defense * 0.4).toInt()
         println("$name defends and reduces damage by $reducedDamage.")
@@ -45,6 +30,24 @@ class Enemy(
         hp += healedHP
         println("$name heals for $healedHP HP.")
         return healedHP
+    }
+
+    fun biteAttack(opponent: Character): Int {
+        val damage = (attack * 0.8).toInt()
+        val healedHP = (damage * 0.2).toInt() // Heal 20% of damage dealt
+        opponent.hp -= damage
+        hp += healedHP
+        println("$name uses Bite Attack on ${opponent.name} for $damage damage and heals $healedHP HP.")
+        return damage
+    }
+
+    fun bloodSiphon(opponent: Character): Int {
+        val damage = (attack * 1.5).toInt()
+        val healedHP = (damage * 0.5).toInt() // Heal 50% of damage dealt
+        opponent.hp -= damage
+        hp += healedHP
+        println("$name uses Blood Siphon on ${opponent.name} for $damage damage and heals $healedHP HP.")
+        return damage
     }
 
 }

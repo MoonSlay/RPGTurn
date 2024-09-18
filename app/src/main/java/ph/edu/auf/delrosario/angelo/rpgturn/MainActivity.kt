@@ -35,10 +35,11 @@ class MainActivity : AppCompatActivity() {
         // Initialize hero and enemy objects
         hero = Hero("Angelo",
             maxHP = Random.nextInt(180, 220),
-            attackPower = Random.nextInt(150, 270),
+            attack = Random.nextInt(150, 270),
+            vitality = Random.nextInt(1, 5),
             defense = Random.nextInt(8, 16),
-            luck = Random.nextInt(1, 5),
-            evasion = Random.nextInt(3, 8))
+            agility = Random.nextInt(8, 16),
+            luck = Random.nextInt(1, 5))
 
 
 
@@ -80,8 +81,8 @@ class MainActivity : AppCompatActivity() {
 
         llAttackOptions = findViewById(R.id.llAttackOptions)
 
-        val btnSwiftCut = findViewById<Button>(R.id.btnSwiftCut)
-        val btnForwardSlash = findViewById<Button>(R.id.btnForwardSlash)
+        val btnNormal = findViewById<Button>(R.id.btnNormal)
+        val btnSpecial = findViewById<Button>(R.id.btnSpecial)
         val btnBack = findViewById<Button>(R.id.btnBack)
 
         // Set button listeners
@@ -101,17 +102,17 @@ class MainActivity : AppCompatActivity() {
             btnHeal.visibility = View.VISIBLE
         }
 
-        btnSwiftCut.setOnClickListener {
-            val damage = hero.swiftCut(enemy)
-            logAction(R.string.attack_log, "Swift Cut", damage)
+        btnNormal.setOnClickListener {
+            val damage = hero.biteAttack(enemy)
+            logAction(R.string.attack_log, "biteAttack", damage)
             updateHpBars()
             checkGameOver()
             enemyTurn()
         }
 
-        btnForwardSlash.setOnClickListener {
-            val damage = hero.forwardSlash(enemy)
-            logAction(R.string.attack_log, "Forward Slash", damage)
+        btnSpecial.setOnClickListener {
+            val damage = hero.bloodSiphon(enemy)
+            logAction(R.string.attack_log, "blood siphon", damage)
             updateHpBars()
             checkGameOver()
             enemyTurn()
@@ -138,16 +139,16 @@ class MainActivity : AppCompatActivity() {
 
         // Set image click listeners to show stats in modal
         imageViewHero.setOnClickListener {
-            showStatsDialog("Hero Stats", "HP: ${hero.hp}\nDEF: ${hero.defense}\nATK: ${hero.attackPower}\nLUCK: ${hero.luck}\nEVA: ${hero.evasion}")
+            showStatsDialog("Hero Stats", "ATK: ${hero.attack}\nDEF: ${hero.defense}\nVIT: ${hero.vitality}AGI: ${hero.agility}LUCK: ${hero.luck}")
         }
         imageViewBlackDragon.setOnClickListener {
-            showStatsDialog("Black Dragon Stats", "HP: ${enemy.hp}\nDEF: ${enemy.defense}\nATK: ${enemy.attackPower}\nLUCK: ${enemy.luck}\nEVA: ${enemy.evasion}")
+            showStatsDialog("Black Dragon Stats", "ATK: ${enemy.attack}\nDEF: ${enemy.defense}\nVIT: ${enemy.vitality}AGI: ${enemy.agility}LUCK: ${enemy.luck}")
         }
         imageViewOrc.setOnClickListener {
-            showStatsDialog("Orc Stats", "HP: ${enemy.hp}\nDEF: ${enemy.defense}\nATK: ${enemy.attackPower}\nLUCK: ${enemy.luck}\nEVA: ${enemy.evasion}")
+            showStatsDialog("Orc Stats", "ATK: ${enemy.attack}\nDEF: ${enemy.defense}\nVIT: ${enemy.vitality}AGI: ${enemy.agility}LUCK: ${enemy.luck}")
         }
         imageViewGoblin.setOnClickListener {
-            showStatsDialog("Goblin Stats", "HP: ${enemy.hp}\nDEF: ${enemy.defense}\nATK: ${enemy.attackPower}\nLUCK: ${enemy.luck}\nEVA: ${enemy.evasion}")
+            showStatsDialog("Goblin Stats", "ATK: ${enemy.attack}\nDEF: ${enemy.defense}\nVIT: ${enemy.vitality}AGI: ${enemy.agility}LUCK: ${enemy.luck}")
         }
 
 
@@ -163,34 +164,38 @@ class MainActivity : AppCompatActivity() {
             1 -> Enemy("Goblin",
                 level = Random.nextInt(1, 5) + levelMultiplier,
                 maxHP = Random.nextInt(80, 100) * levelMultiplier,
-                attackPower = Random.nextInt(10, 15) * levelMultiplier,
                 defense = Random.nextInt(5, 10) * levelMultiplier,
-                luck = Random.nextInt(1, 3) * levelMultiplier,
-                evasion = Random.nextInt(2, 5) * levelMultiplier)
+                vitality = Random.nextInt(5, 10) * levelMultiplier,
+                agility = Random.nextInt(5, 10) * levelMultiplier,
+                attack = Random.nextInt(10, 15) * levelMultiplier,
+                luck = Random.nextInt(5, 10) * levelMultiplier)
 
             2 -> Enemy("Orc",
-                level = Random.nextInt(1, 8) + levelMultiplier,
-                maxHP = Random.nextInt(150, 250) * levelMultiplier,
-                attackPower = Random.nextInt(15, 20) * levelMultiplier,
-                defense = Random.nextInt(15, 25) * levelMultiplier,
-                luck = Random.nextInt(1, 2) * levelMultiplier,
-                evasion = Random.nextInt(1, 3) * levelMultiplier,)
+                level = Random.nextInt(1, 5) + levelMultiplier,
+                maxHP = Random.nextInt(80, 100) * levelMultiplier,
+                defense = Random.nextInt(5, 10) * levelMultiplier,
+                vitality = Random.nextInt(5, 10) * levelMultiplier,
+                agility = Random.nextInt(5, 10) * levelMultiplier,
+                attack = Random.nextInt(10, 15) * levelMultiplier,
+                luck = Random.nextInt(5, 10) * levelMultiplier)
 
             3 -> Enemy("Black Dragon",
                 level = Random.nextInt(1, 5) + levelMultiplier,
-                maxHP = Random.nextInt(150, 200) * levelMultiplier,
-                attackPower = Random.nextInt(30, 40) * levelMultiplier,
-                defense = Random.nextInt(10, 25) * levelMultiplier,
-                luck = Random.nextInt(3, 5) * levelMultiplier,
-                evasion = Random.nextInt(3, 5) * levelMultiplier,)
+                maxHP = Random.nextInt(80, 100) * levelMultiplier,
+                defense = Random.nextInt(5, 10) * levelMultiplier,
+                vitality = Random.nextInt(5, 10) * levelMultiplier,
+                agility = Random.nextInt(5, 10) * levelMultiplier,
+                attack = Random.nextInt(10, 15) * levelMultiplier,
+                luck = Random.nextInt(5, 10) * levelMultiplier)
 
             else -> Enemy("Goblin",
                 level = Random.nextInt(1, 5) + levelMultiplier,
                 maxHP = Random.nextInt(80, 100) * levelMultiplier,
-                attackPower = Random.nextInt(10, 15) * levelMultiplier,
                 defense = Random.nextInt(5, 10) * levelMultiplier,
-                luck = Random.nextInt(1, 3) * levelMultiplier,
-                evasion = Random.nextInt(2, 5) * levelMultiplier)
+                vitality = Random.nextInt(5, 10) * levelMultiplier,
+                agility = Random.nextInt(5, 10) * levelMultiplier,
+                attack = Random.nextInt(10, 15) * levelMultiplier,
+                luck = Random.nextInt(5, 10) * levelMultiplier)
         }
     }
 
@@ -264,13 +269,13 @@ class MainActivity : AppCompatActivity() {
                     val attackType = (1..2).random()
                     when (attackType) {
                         1 -> {
-                            val damage = enemy.swiftCut(hero)
+                            val damage = enemy.biteAttack(hero)
                             logAction("Enemy used Swift Cut on Hero for $damage damage.")
                             updateHpBars()
                             checkGameOver()
                         }
                         2 -> {
-                            val damage = enemy.forwardSlash(hero)
+                            val damage = enemy.bloodSiphon(hero)
                             if (damage == 0) {
                                 logAction("Enemy is charging Forward Slash.")
                             } else {
@@ -303,14 +308,14 @@ class MainActivity : AppCompatActivity() {
                     val attackType = (1..2).random()
                     when (attackType) {
                         1 -> {
-                            val damage = hero.swiftCut(enemy)
+                            val damage = hero.biteAttack(enemy)
                             logAction("Hero used Swift Cut on Enemy for $damage damage.")
                             updateHpBars()
                             checkGameOver()
                             enemyTurn()
                         }
                         2 -> {
-                            val damage = hero.forwardSlash(enemy)
+                            val damage = hero.bloodSiphon(enemy)
                             logAction("Hero used Forward Slash on Enemy for $damage damage.")
                             updateHpBars()
                             checkGameOver()
