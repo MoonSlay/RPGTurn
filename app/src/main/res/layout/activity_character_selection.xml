@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:textColor="@color/black"
+    android:background="@drawable/woodbg">
 
     <!-- Top text "Choose character" -->
     <TextView
@@ -27,15 +29,17 @@
         <!-- Vanguard -->
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="269dp"
             android:layout_columnWeight="1"
+            android:background="@drawable/volcanobg"
+            android:gravity="center"
             android:orientation="vertical"
-            android:gravity="center">
+            android:layout_margin="1dp">
 
             <ImageView
                 android:id="@+id/selectionImageVanguard"
-                android:layout_width="186dp"
-                android:layout_height="225dp"
+                android:layout_width="151dp"
+                android:layout_height="199dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/hero_image"
                 android:src="@drawable/vanguard" />
@@ -44,22 +48,26 @@
                 android:id="@+id/radioVanguard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="@string/vanguard"
-                android:layout_gravity="center"/>
+                android:background="#80FFFFFF"
+                android:textColor="@color/black" />
         </LinearLayout>
 
         <!-- Vampire -->
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="269dp"
             android:layout_columnWeight="1"
+            android:background="@drawable/gravebg"
+            android:gravity="center"
             android:orientation="vertical"
-            android:gravity="center">
+            android:layout_margin="1dp">
 
             <ImageView
                 android:id="@+id/selectionImageVampire"
-                android:layout_width="186dp"
-                android:layout_height="225dp"
+                android:layout_width="151dp"
+                android:layout_height="199dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/hero_image"
                 android:src="@drawable/vampire" />
@@ -69,21 +77,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/vampire"
+                android:background="#80FFFFFF"
                 android:layout_gravity="center"/>
         </LinearLayout>
 
         <!-- Wizard -->
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="269dp"
             android:layout_columnWeight="1"
+            android:background="@drawable/waterbg"
+            android:gravity="center"
             android:orientation="vertical"
-            android:gravity="center">
+            android:layout_margin="1dp">
 
             <ImageView
                 android:id="@+id/selectionImageWizard"
-                android:layout_width="186dp"
-                android:layout_height="225dp"
+                android:layout_width="151dp"
+                android:layout_height="199dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/hero_image"
                 android:src="@drawable/wizard" />
@@ -93,21 +104,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/wizard"
+                android:background="#80FFFFFF"
                 android:layout_gravity="center"/>
         </LinearLayout>
 
         <!-- Assassin -->
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="269dp"
             android:layout_columnWeight="1"
+            android:background="@drawable/darknessbg"
+            android:gravity="center"
             android:orientation="vertical"
-            android:gravity="center">
+            android:layout_margin="1dp">
 
             <ImageView
                 android:id="@+id/selectionImageAssassin"
-                android:layout_width="186dp"
-                android:layout_height="225dp"
+                android:layout_width="151dp"
+                android:layout_height="199dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/hero_image"
                 android:src="@drawable/assasin" />
@@ -117,6 +131,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/assassin"
+                android:background="#80FFFFFF"
                 android:layout_gravity="center"/>
         </LinearLayout>
 
@@ -128,6 +143,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter your hero's name"
+        android:background="#80FFFFFF"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"/>
 
