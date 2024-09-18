@@ -45,15 +45,33 @@
         app:layout_constraintBottom_toTopOf="@+id/heroBar"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ProgressBar
-        android:id="@+id/enemyHpBar"
-        style="@android:style/Widget.ProgressBar.Horizontal"
+    <RelativeLayout
+        android:id="@+id/enemyBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:max="100"
-        android:progress="100"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ProgressBar
+            android:id="@+id/enemyHpBar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:progress="100"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/enemyNameLevelText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"/>
+
+    </RelativeLayout>
+
 
 
     <ImageView
@@ -198,23 +216,25 @@
     <LinearLayout
         android:id="@+id/gamelog"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:gravity="center"
-        android:orientation="vertical"
+        android:orientation="horizontal"
+        android:background="@drawable/logbg"
         app:layout_constraintBottom_toBottomOf="parent">
+
 
         <TextView
             android:id="@+id/tvGameLog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="15dp"
             android:textSize="16sp" />
 
         <Button
             android:id="@+id/btnShowLog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="15dp"
             android:text="Show Log" />
     </LinearLayout>
 

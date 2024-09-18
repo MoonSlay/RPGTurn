@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var imageViewGoblin: ImageView
     private lateinit var imageDice: ImageView
     private lateinit var heroNameLevelText: TextView
+    private lateinit var enemyNameLevelText: TextView
     private val gameLog = mutableListOf<String>() // List to store the action log
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,8 +50,10 @@ class MainActivity : AppCompatActivity() {
         imageViewGoblin = findViewById(R.id.imageViewGoblin)
         imageDice = findViewById(R.id.imageDice)
         heroNameLevelText = findViewById(R.id.heroNameLevelText)
+        enemyNameLevelText = findViewById(R.id.enemyNameLevelText)
 
         spawnNewEnemy()
+        enemyNameLevelText.text = "${enemy.name}, Level: ${enemy.level} "
 
         heroHpBar.max = hero.maxHP
         heroHpBar.progress = hero.hp
@@ -153,6 +156,7 @@ class MainActivity : AppCompatActivity() {
         val levelMultiplier = hero.level
         return when ((1..3).random()) {
             1 -> Enemy("Goblin",
+                level = Random.nextInt(1, 5) + levelMultiplier,
                 maxHP = Random.nextInt(80, 100) * levelMultiplier,
                 attackPower = Random.nextInt(10, 15) * levelMultiplier,
                 defense = Random.nextInt(5, 10) * levelMultiplier,
@@ -160,18 +164,22 @@ class MainActivity : AppCompatActivity() {
                 evasion = Random.nextInt(2, 5) * levelMultiplier)
 
             2 -> Enemy("Orc",
+                level = Random.nextInt(1, 5) + levelMultiplier,
                 maxHP = Random.nextInt(150, 200) * levelMultiplier,
                 attackPower = Random.nextInt(20, 25) * levelMultiplier,
                 defense = Random.nextInt(10, 15) * levelMultiplier,
                 luck = Random.nextInt(1, 2) * levelMultiplier,
                 evasion = Random.nextInt(1, 3) * levelMultiplier,)
 
-            3 -> Enemy("Black Dragon", maxHP = Random.nextInt(250, 300) * levelMultiplier,
+            3 -> Enemy("Black Dragon",
+                level = Random.nextInt(1, 5) + levelMultiplier,
+                maxHP = Random.nextInt(250, 300) * levelMultiplier,
                 attackPower = Random.nextInt(30, 40) * levelMultiplier,
                 defense = Random.nextInt(15, 20) * levelMultiplier,
                 luck = Random.nextInt(3, 5) * levelMultiplier,
                 evasion = Random.nextInt(3, 5) * levelMultiplier,)
             else -> Enemy("Goblin",
+                level = Random.nextInt(1, 5) + levelMultiplier,
                 maxHP = Random.nextInt(80, 100) * levelMultiplier,
                 attackPower = Random.nextInt(10, 15) * levelMultiplier,
                 defense = Random.nextInt(5, 10) * levelMultiplier,

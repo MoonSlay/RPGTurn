@@ -9,7 +9,8 @@ class Enemy(
     defense: Int,
     attackPower: Int,
     luck: Int,
-    evasion: Int
+    evasion: Int,
+    var level: Int
 ) : Character(name, maxHP, hp, defense, attackPower, luck, evasion) {
     override fun swiftCut(opponent: Character): Int {
         val damage = (attackPower * 1.2).toInt() - opponent.defend()
