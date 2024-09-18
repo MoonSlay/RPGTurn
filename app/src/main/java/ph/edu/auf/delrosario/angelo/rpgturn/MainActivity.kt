@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import kotlin.random.Random
@@ -17,7 +18,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var enemyHpBar: ProgressBar
     private lateinit var llAttackOptions: LinearLayout
     private lateinit var imageViewHero: ImageView
-    private lateinit var imageViewEnemy: ImageView
+    private lateinit var imageViewBlackDragon: ImageView
+    private lateinit var imageViewOrc: ImageView
+    private lateinit var imageViewGoblin: ImageView
     private lateinit var imageDice: ImageView
     private val gameLog = mutableListOf<String>() // List to store the action log
 
@@ -33,22 +36,20 @@ class MainActivity : AppCompatActivity() {
             luck = Random.nextInt(1, 5),
             evasion = Random.nextInt(3, 8))
 
-        enemy = Enemy(
-            "Black Dragon",
-            maxHP = Random.nextInt(80, 120),
-            attackPower = Random.nextInt(10, 20),
-            defense = Random.nextInt(8, 16),
-            luck = Random.nextInt(1, 5),
-            evasion = Random.nextInt(3, 8)
-        )
+
+
 
         // Hook UI elements
         tvGameLog = findViewById(R.id.tvGameLog)
         heroHpBar = findViewById(R.id.heroHpBar)
         enemyHpBar = findViewById(R.id.enemyHpBar)
         imageViewHero = findViewById(R.id.imageViewHero)
-        imageViewEnemy = findViewById(R.id.imageViewEnemy)
+        imageViewBlackDragon = findViewById(R.id.imageViewBlackDragon)
+        imageViewOrc = findViewById(R.id.imageViewOrc)
+        imageViewGoblin = findViewById(R.id.imageViewGoblin)
         imageDice = findViewById(R.id.imageDice)
+
+        spawnNewEnemy()
 
         heroHpBar.max = hero.maxHP
         heroHpBar.progress = hero.hp
@@ -127,9 +128,46 @@ class MainActivity : AppCompatActivity() {
         imageViewHero.setOnClickListener {
             showStatsDialog("Hero Stats", "HP: ${hero.hp}\nDEF: ${hero.defense}\nATK: ${hero.attackPower}\nLUCK: ${hero.luck}\nEVA: ${hero.evasion}")
         }
+        imageViewBlackDragon.setOnClickListener {
+            showStatsDialog("Black Dragon Stats", "HP: ${hero.hp}\nDEF: ${hero.defense}\nATK: ${hero.attackPower}\nLUCK: ${hero.luck}\nEVA: ${hero.evasion}")
+        }
+        imageViewOrc.setOnClickListener {
+            showStatsDialog("Orc Stats", "HP: ${hero.hp}\nDEF: ${hero.defense}\nATK: ${hero.attackPower}\nLUCK: ${hero.luck}\nEVA: ${hero.evasion}")
+        }
+        imageViewGoblin.setOnClickListener {
+            showStatsDialog("Goblin Stats", "HP: ${hero.hp}\nDEF: ${hero.defense}\nATK: ${hero.attackPower}\nLUCK: ${hero.luck}\nEVA: ${hero.evasion}")
+        }
 
-        imageViewEnemy.setOnClickListener {
-            showStatsDialog("Enemy Stats", "HP: ${enemy.hp}\nDEF: ${enemy.defense}\nATK: ${enemy.attackPower}\nLUCK: ${enemy.luck}\nEVA: ${enemy.evasion}")
+    }
+
+    fun spawnRandomEnemy(): Enemy {
+        val levelMultiplier = hero.level
+        return when ((1..3).random()) {
+            1 -> Enemy("Goblin",
+                maxHP = Random.nextInt(80, 100) * levelMultiplier,
+                attackPower = Random.nextInt(10, 15) * levelMultiplier,
+                defense = Random.nextInt(5, 10) * levelMultiplier,
+                luck = Random.nextInt(1, 3) * levelMultiplier,
+                evasion = Random.nextInt(2, 5) * levelMultiplier)
+
+            2 -> Enemy("Orc",
+                maxHP = Random.nextInt(150, 200) * levelMultiplier,
+                attackPower = Random.nextInt(20, 25) * levelMultiplier,
+                defense = Random.nextInt(10, 15) * levelMultiplier,
+                luck = Random.nextInt(1, 2) * levelMultiplier,
+                evasion = Random.nextInt(1, 3) * levelMultiplier,)
+
+            3 -> Enemy("Black Dragon", maxHP = Random.nextInt(250, 300) * levelMultiplier,
+                attackPower = Random.nextInt(30, 40) * levelMultiplier,
+                defense = Random.nextInt(15, 20) * levelMultiplier,
+                luck = Random.nextInt(3, 5) * levelMultiplier,
+                evasion = Random.nextInt(3, 5) * levelMultiplier,)
+            else -> Enemy("Goblin",
+                maxHP = Random.nextInt(80, 100) * levelMultiplier,
+                attackPower = Random.nextInt(10, 15) * levelMultiplier,
+                defense = Random.nextInt(5, 10) * levelMultiplier,
+                luck = Random.nextInt(1, 3) * levelMultiplier,
+                evasion = Random.nextInt(2, 5) * levelMultiplier)
         }
     }
 
@@ -184,17 +222,23 @@ class MainActivity : AppCompatActivity() {
 
     // Function to spawn a new enemy with scaled stats
     private fun spawnNewEnemy() {
-        val levelMultiplier = hero.level
-        enemy = Enemy(
-            "Enemy",
-            maxHP = Random.nextInt(80, 120) * levelMultiplier,      // Scale HP by hero level
-            attackPower = Random.nextInt(10, 20) * levelMultiplier, // Scale Attack Power
-            defense = Random.nextInt(8, 16) * levelMultiplier,      // Scale Defense
-            luck = Random.nextInt(1, 5) + levelMultiplier,          // Scale Luck slightly
-            evasion = Random.nextInt(3, 8) + levelMultiplier        // Scale Evasion slightly
-        )
-        updateHpBars() // Update HP bars to reflect the new enemy stats
-        logAction("A new enemy appeared!")
+        // Spawn a new random enemy
+        enemy = spawnRandomEnemy()
+
+        imageViewBlackDragon.visibility = View.GONE
+        imageViewOrc.visibility = View.GONE
+        imageViewGoblin.visibility = View.GONE
+
+        // Show the corresponding enemy image based on the spawned enemy
+        when (enemy.name) {
+            "Black Dragon" -> imageViewBlackDragon.visibility = View.VISIBLE
+            "Goblin" -> imageViewGoblin.visibility = View.VISIBLE
+            "Orc" -> imageViewOrc.visibility = View.VISIBLE
+        }
+
+        // Update the HP bars and game log
+        updateHpBars()
+        logAction("A wild ${enemy.name} appeared!")
     }
 
     // Add XP and level-up messages to the game log

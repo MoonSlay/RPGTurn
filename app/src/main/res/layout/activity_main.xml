@@ -38,18 +38,40 @@
         android:layout_marginEnd="8dp"
         android:max="100"
         android:progress="100"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewEnemy" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
-        android:id="@+id/imageViewEnemy"
+        android:id="@+id/imageViewBlackDragon"
         android:layout_width="133dp"
         android:layout_height="153dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="44dp"
         android:src="@drawable/dragon"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/imageViewOrc"
+        android:layout_width="133dp"
+        android:layout_height="153dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="44dp"
+        android:src="@drawable/orc"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/imageViewGoblin"
+        android:layout_width="133dp"
+        android:layout_height="153dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="44dp"
+        android:src="@drawable/goblin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 
