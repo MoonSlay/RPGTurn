@@ -43,7 +43,8 @@
         android:layout_marginBottom="4dp"
         android:src="@drawable/hero"
         app:layout_constraintBottom_toTopOf="@+id/heroBar"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/hero_image"/>
 
     <RelativeLayout
         android:id="@+id/enemyBar"
@@ -82,7 +83,8 @@
         android:layout_marginEnd="104dp"
         android:src="@drawable/dragon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/enemy_image"/>
 
     <ImageView
         android:id="@+id/imageViewOrc"
@@ -92,7 +94,8 @@
         android:layout_marginEnd="104dp"
         android:src="@drawable/orc"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/enemy_image"/>
 
     <ImageView
         android:id="@+id/imageViewGoblin"
@@ -102,7 +105,8 @@
         android:layout_marginEnd="108dp"
         android:src="@drawable/goblin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/enemy_image"/>
 
     <FrameLayout
         android:id="@+id/framelayout"
@@ -117,7 +121,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/scroll" />
+            app:srcCompat="@drawable/scroll"
+            android:contentDescription="@null"/>
 
 
         <LinearLayout
@@ -134,21 +139,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                style="?android:attr/buttonBarStyle">
 
                 <Button
                     android:id="@+id/btnAttack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:text="Attack" />
+                    android:text="@string/attack_button"
+                    style="?android:attr/buttonBarStyle"/>
 
                 <Button
                     android:id="@+id/btnDefend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:text="Defend" />
+                    android:text="@string/defend_button"
+                    style="?android:attr/buttonBarStyle"/>
 
             </LinearLayout>
 
@@ -164,7 +172,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:text="Heal" />
+                    android:text="@string/heal_button"/>
 
             </LinearLayout>
 
@@ -172,32 +180,52 @@
             <LinearLayout
                 android:id="@+id/llAttackOptions"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/gamelog"
                 android:visibility="gone">
 
-                <Button
-                    android:id="@+id/btnSwiftCut"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:text="Swift Cut" />
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    style="?android:attr/buttonBarStyle">
 
-                <Button
-                    android:id="@+id/btnForwardSlash"
+                    <Button
+                        android:id="@+id/btnSwiftCut"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:text="@string/cut_button"
+                        style="?android:attr/buttonBarStyle"/>
+
+                    <Button
+                        android:id="@+id/btnForwardSlash"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/slash_button"
+                        style="?android:attr/buttonBarStyle"/>
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:text="Slash" />
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/btnBack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Return" />
+                    <Button
+                        android:id="@+id/btnBack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:text="@string/return_button"/>
 
+                </LinearLayout>
             </LinearLayout>
-
 
         </LinearLayout>
     </FrameLayout>
@@ -211,13 +239,14 @@
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/gamelog"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/dice" />
+        app:srcCompat="@drawable/dice"
+        android:contentDescription="@string/dice_image"/>
 
     <LinearLayout
         android:id="@+id/gamelog"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:background="@drawable/logbg"
         app:layout_constraintBottom_toBottomOf="parent">
@@ -226,8 +255,8 @@
             android:id="@+id/btnShowLog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:text="Show Log" />
+            android:layout_marginStart="25dp"
+            android:text="@string/game_log_button" />
 
         <TextView
             android:id="@+id/tvGameLog"
