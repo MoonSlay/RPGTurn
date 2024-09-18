@@ -5,50 +5,133 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- Top text "Choose character" -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select your character class:"
-        android:textSize="18sp" />
+        android:text="@string/choose_character"
+        android:textSize="24sp"
+        android:layout_gravity="center"
+        android:paddingBottom="16dp" />
 
-    <RadioGroup
-        android:id="@+id/radioGroupClasses"
+    <!-- Character selection area - will take up all remaining space -->
+    <GridLayout
+        android:id="@+id/gridLayoutCharacters"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:columnCount="2"
+        android:rowCount="2"
+        android:layout_gravity="center">
 
-        <RadioButton
-            android:id="@+id/radioVampire"
-            android:layout_width="wrap_content"
+        <!-- Vanguard -->
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Vampire" />
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:gravity="center">
 
-        <RadioButton
-            android:id="@+id/radioVanguard"
-            android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/selectionImageVanguard"
+                android:layout_width="186dp"
+                android:layout_height="225dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/hero_image"
+                android:src="@drawable/vanguard" />
+
+            <RadioButton
+                android:id="@+id/radioVanguard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/vanguard"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+        <!-- Vampire -->
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Vanguard" />
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:gravity="center">
 
-        <RadioButton
-            android:id="@+id/radioWizard"
-            android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/selectionImageVampire"
+                android:layout_width="186dp"
+                android:layout_height="225dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/hero_image"
+                android:src="@drawable/vampire" />
+
+            <RadioButton
+                android:id="@+id/radioVampire"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/vampire"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+        <!-- Wizard -->
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Wizard" />
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:gravity="center">
 
-        <RadioButton
-            android:id="@+id/radioAssassin"
-            android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/selectionImageWizard"
+                android:layout_width="186dp"
+                android:layout_height="225dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/hero_image"
+                android:src="@drawable/wizard" />
+
+            <RadioButton
+                android:id="@+id/radioWizard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wizard"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+        <!-- Assassin -->
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Assassin" />
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:gravity="center">
 
-    </RadioGroup>
+            <ImageView
+                android:id="@+id/selectionImageAssassin"
+                android:layout_width="186dp"
+                android:layout_height="225dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/hero_image"
+                android:src="@drawable/assasin" />
 
+            <RadioButton
+                android:id="@+id/radioAssassin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/assassin"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+    </GridLayout>
+
+    <!-- Bottom EditText for entering hero's name -->
     <EditText
         android:id="@+id/editTextHeroName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter your hero's name" />
+        android:hint="Enter your hero's name"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"/>
 
+    <!-- Start Game Button -->
     <Button
         android:id="@+id/btnStartGame"
         android:layout_width="wrap_content"

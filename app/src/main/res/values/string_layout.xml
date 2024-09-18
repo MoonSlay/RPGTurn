@@ -7,7 +7,12 @@
     <string name="defend_button">Defend</string>
     <string name="heal_button">Heal</string>
     <string name="cut_button">Swift Cut</string>
-    <string name="slash_button">Forward Slash</string>
+    <string name="slash_button">Swift Cut</string>
+    <string name="choose_character">Choose Character</string>
+    <string name="wizard">Water Emperor</string>
+    <string name="vampire">Vampire Lord</string>
+    <string name="assassin">Shadowblade Assassin</string>
+    <string name="vanguard">Crimson Vanguard</string>
     <string name="return_button">Return</string>
     <string name="game_log_button">Show Log</string>
     <string name="welcome">Welcome to RPG Turn</string>
