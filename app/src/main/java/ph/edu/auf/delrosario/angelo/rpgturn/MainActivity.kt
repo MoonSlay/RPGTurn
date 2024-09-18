@@ -227,21 +227,24 @@ class MainActivity : AppCompatActivity() {
         enemyHpBar.progress = enemy.hp
     }
 
+    private val enemyImageViews: Map<String, ImageView> by lazy {
+        mapOf(
+            "Black Dragon" to imageViewBlackDragon,
+            "Goblin" to imageViewGoblin,
+            "Orc" to imageViewOrc
+        )
+    }
+
     // Function to spawn a new enemy with scaled stats
     private fun spawnNewEnemy() {
         // Spawn a new random enemy
         enemy = spawnRandomEnemy()
 
-        imageViewBlackDragon.visibility = View.GONE
-        imageViewOrc.visibility = View.GONE
-        imageViewGoblin.visibility = View.GONE
+        // Hide all enemy images
+        enemyImageViews.values.forEach { it.visibility = View.GONE }
 
         // Show the corresponding enemy image based on the spawned enemy
-        when (enemy.name) {
-            "Black Dragon" -> imageViewBlackDragon.visibility = View.VISIBLE
-            "Goblin" -> imageViewGoblin.visibility = View.VISIBLE
-            "Orc" -> imageViewOrc.visibility = View.VISIBLE
-        }
+        enemyImageViews[enemy.name]?.visibility = View.VISIBLE
 
         // Update the HP bars and game log
         updateHpBars()
