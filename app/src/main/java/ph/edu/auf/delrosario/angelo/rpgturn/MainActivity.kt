@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
                     agility = Random.nextInt(8, 16),
                     luck = Random.nextInt(1, 5))
             }
-            "Vanguard" -> {
+            "Knight" -> {
                 imageVanguard.visibility = View.VISIBLE
                 Vanguard(heroName,
                     maxHP = Random.nextInt(180, 220),
@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
                     agility = Random.nextInt(8, 16),
                     luck = Random.nextInt(1, 5))
             }
-            "Assassin" -> {
+            "Ninja" -> {
                 imageAssassin.visibility = View.VISIBLE
                 Assassin(heroName,
                     maxHP = Random.nextInt(180, 220),
