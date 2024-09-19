@@ -18,7 +18,7 @@ class GameOverActivity : AppCompatActivity() {
         // Restart the game
         val btnRestartGame = findViewById<Button>(R.id.btnRestartGame)
         btnRestartGame.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, CharacterSelectionActivity::class.java)
             startActivity(intent)
             finish() // End the game over activity
         }
