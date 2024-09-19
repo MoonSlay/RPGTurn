@@ -202,43 +202,54 @@
             app:layout_constraintBottom_toTopOf="@+id/gamelog">
 
             <LinearLayout
+                android:id="@+id/llBasicOptions"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="horizontal"
-                style="?android:attr/buttonBarStyle">
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent">
 
-                <Button
-                    android:id="@+id/btnAttack"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:text="@string/attack_button"
-                    style="?android:attr/buttonBarStyle"/>
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    style="?android:attr/buttonBarStyle">
 
-                <Button
-                    android:id="@+id/btnDefend"
+                    <Button
+                        android:id="@+id/btnAttack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:text="@string/attack_button"
+                        style="?android:attr/buttonBarStyle"/>
+
+                    <Button
+                        android:id="@+id/btnDefend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:text="@string/defend_button"
+                        style="?android:attr/buttonBarStyle"/>
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:text="@string/defend_button"
-                    style="?android:attr/buttonBarStyle"/>
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-            </LinearLayout>
+                    <Button
+                        android:id="@+id/btnHeal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:text="@string/heal_button"/>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/btnHeal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:text="@string/heal_button"/>
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -250,7 +261,6 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/gamelog"
                 android:visibility="gone">
 
                 <LinearLayout
@@ -265,14 +275,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
-                        android:text="@string/cut_button"
+                        android:text="@string/normal_button"
                         style="?android:attr/buttonBarStyle"/>
 
                     <Button
                         android:id="@+id/btnSpecial"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/slash_button"
+                        android:text="@string/special_button"
                         style="?android:attr/buttonBarStyle"/>
                 </LinearLayout>
 
@@ -309,8 +319,8 @@
         android:id="@+id/imageDice"
         android:layout_width="100dp"
         android:layout_height="96dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="60dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/gamelog"
         app:layout_constraintEnd_toEndOf="parent"

@@ -6,8 +6,8 @@
     <string name="attack_button">Attack</string>
     <string name="defend_button">Defend</string>
     <string name="heal_button">Heal</string>
-    <string name="cut_button">Swift Cut</string>
-    <string name="slash_button">Swift Cut</string>
+    <string name="normal_button">Normal</string>
+    <string name="special_button">Special</string>
     <string name="choose_character">Choose Character</string>
     <string name="wizard">Wizard</string>
     <string name="vampire">Vampire</string>

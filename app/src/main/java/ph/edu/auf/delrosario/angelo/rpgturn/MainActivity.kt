@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var heroHpBar: ProgressBar
     private lateinit var enemyHpBar: ProgressBar
     private lateinit var llAttackOptions: LinearLayout
+    private lateinit var llBasicOptions: LinearLayout
     private lateinit var imageVampire: ImageView
     private lateinit var imageVanguard: ImageView
     private lateinit var imageAssassin: ImageView
@@ -147,6 +148,7 @@ class MainActivity : AppCompatActivity() {
         val btnShowLog = findViewById<Button>(R.id.btnShowLog)
 
         llAttackOptions = findViewById(R.id.llAttackOptions)
+        llBasicOptions = findViewById(R.id.llBasicOptions)
 
         val btnNormal = findViewById<Button>(R.id.btnNormal)
         val btnSpecial = findViewById<Button>(R.id.btnSpecial)
@@ -155,18 +157,12 @@ class MainActivity : AppCompatActivity() {
         // Set button listeners
         btnAttack.setOnClickListener {
             llAttackOptions.visibility = View.VISIBLE
-            imageDice.visibility = View.GONE
-            btnAttack.visibility = View.GONE
-            btnDefend.visibility = View.GONE
-            btnHeal.visibility = View.GONE
+            llBasicOptions.visibility = View.GONE
         }
 
         btnBack.setOnClickListener {
             llAttackOptions.visibility = View.GONE
-            imageDice.visibility = View.VISIBLE
-            btnAttack.visibility = View.VISIBLE
-            btnDefend.visibility = View.VISIBLE
-            btnHeal.visibility = View.VISIBLE
+            llBasicOptions.visibility = View.VISIBLE
         }
 
         btnNormal.setOnClickListener {
@@ -473,16 +469,15 @@ class MainActivity : AppCompatActivity() {
 
             // Continue the game after leveling up
         } else if (hero.hp <= 0) {
-            navigateToGameOver(false) // Hero loses, go to Game Over screen
+            navigateToGameOver() // Hero loses, go to Game Over screen
         }
     }
     private fun updateStageLevel() {
         stageLevelTextView.text = getString(R.string.stage_level_text, stageLevel)
     }
 
-    private fun navigateToGameOver(isWin: Boolean) {
+    private fun navigateToGameOver() {
         val intent = Intent(this, GameOverActivity::class.java)
-        intent.putExtra("isWin", isWin)
         startActivity(intent)
         finish()
     }
